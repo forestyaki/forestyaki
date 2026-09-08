@@ -17,7 +17,7 @@ export default function StoryNotFound() {
 
         <div className="flex flex-wrap items-center justify-center gap-3">
           <Link
-            href="/#stories"
+            href="/stories"
             className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-[#233F31] text-[#FAF7F2] text-xs font-semibold hover:bg-[#182C22] transition-all shadow-xs"
           >
             <span>🌲</span>

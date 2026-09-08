@@ -97,7 +97,7 @@ export default function AboutPage() {
 
           {/* 右側捷徑 */}
           <div className="hidden sm:flex items-center gap-4 text-xs font-medium text-[#737373]">
-            <Link href="/#stories" className="hover:text-[#BA6341] transition-colors">
+            <Link href="/stories" className="hover:text-[#BA6341] transition-colors">
               山林日誌
             </Link>
             <Link href="/#film-gallery" className="hover:text-[#BA6341] transition-colors">
@@ -304,7 +304,7 @@ export default function AboutPage() {
             {/* 導覽膠囊按鈕 */}
             <div className="flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="/#stories"
+                href="/stories"
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#233F31] text-[#FAF7F2] font-semibold text-sm hover:bg-[#182C22] shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all"
               >
                 <span>🌲</span>
@@ -333,7 +333,7 @@ export default function AboutPage() {
             <Link href="/about" className="hover:text-[#BA6341] transition-colors font-semibold text-[#262626]">
               關於森女孩
             </Link>
-            <Link href="/#stories" className="hover:text-[#BA6341] transition-colors">
+            <Link href="/stories" className="hover:text-[#BA6341] transition-colors">
               山林日誌
             </Link>
             <Link

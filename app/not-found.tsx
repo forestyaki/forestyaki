@@ -82,7 +82,7 @@ export default function NotFound() {
 
           {/* 底部熱門單元捷徑 */}
           <div className="mt-8 pt-6 border-t border-[#EFE8DC] flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-[#737373]">
-            <Link href="/#stories" className="hover:text-[#BA6341] transition-colors">
+            <Link href="/stories" className="hover:text-[#BA6341] transition-colors">
               山林日誌
             </Link>
             <span>•</span>

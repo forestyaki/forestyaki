@@ -245,125 +245,7 @@ function StoryCard({
   );
 }
 
-/**
- * 報導者風格 - 首頁頂部主打推薦（Featured Hero）
- */
-function HomeFeaturedHero({ story }: { story: NotionStory }) {
-  const [imgError, setImgError] = useState(false);
-
-  const fallbackImage = useMemo(() => {
-    if (story.category === "長程縱走" || story.category === "長程徒步") {
-      return "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85";
-    }
-    if (story.category === "單日步道" || story.category === "毛孩野行") {
-      return "/images/ronnie-trail.jpg";
-    }
-    if (story.category === "海外遠征") {
-      return "/images/gallery-1.jpg";
-    }
-    return "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=85";
-  }, [story.category]);
-
-  const displayImage = !imgError && story.coverImage ? story.coverImage : fallbackImage;
-
-  return (
-    <article className="group relative bg-[#FDFBF7] rounded-3xl border border-[#E4DDD0] shadow-sm hover:shadow-xl hover:border-[#BA6341]/40 transition-all duration-500 overflow-hidden mb-12">
-      <div className="grid grid-cols-1 lg:grid-cols-12 items-stretch">
-        {/* 左側 / 大尺寸封面圖 (佔 7 欄) */}
-        <div className="lg:col-span-7 relative aspect-[16/10] sm:aspect-[16/9] lg:aspect-auto min-h-[260px] sm:min-h-[360px] lg:min-h-[420px] overflow-hidden bg-[#243E30]">
-          <Link
-            href={`/stories/${encodeURIComponent(story.slug)}`}
-            className="block w-full h-full relative cursor-pointer"
-            aria-label={`閱讀焦點專題：${story.title}`}
-          >
-            <Image
-              src={displayImage}
-              alt={story.title}
-              fill
-              unoptimized
-              sizes="(max-width: 1024px) 100vw, 58vw"
-              className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              onError={() => setImgError(true)}
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/10 pointer-events-none" />
-            <div className="absolute top-5 left-5 z-10 flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#BA6341] text-white text-xs font-semibold tracking-wide shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                <span>焦點推薦 · FEATURED</span>
-              </span>
-            </div>
-            {story.date && (
-              <div className="absolute bottom-4 left-5 z-10">
-                <span className="text-xs text-stone-100 font-mono tracking-wider drop-shadow-sm">
-                  {story.date}
-                </span>
-              </div>
-            )}
-          </Link>
-        </div>
-
-        {/* 右側 / 引言摘要卡片 (佔 5 欄) */}
-        <div className="lg:col-span-5 p-7 sm:p-10 lg:p-11 flex flex-col justify-between bg-[#FDFBF7]">
-          <div>
-            <div className="flex items-center gap-2.5 mb-4 flex-wrap">
-              <span
-                className={`px-3 py-1 rounded-full text-xs font-semibold border ${getCategoryBadgeClass(
-                  story.category
-                )}`}
-              >
-                {story.category}
-              </span>
-              <span className="text-xs text-[#737373] font-mono uppercase tracking-wider">
-                本季主打
-              </span>
-            </div>
-
-            <h3 className="text-2xl sm:text-3xl font-bold text-[#262626] leading-snug group-hover:text-[#BA6341] transition-colors mb-4">
-              <Link href={`/stories/${encodeURIComponent(story.slug)}`}>
-                {story.title}
-              </Link>
-            </h3>
-
-            <p className="text-base text-[#4A4A4A] leading-relaxed line-clamp-3 sm:line-clamp-4 font-normal mb-6">
-              {story.summary}
-            </p>
-          </div>
-
-          <div className="pt-6 border-t border-[#EFE8DC] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="text-xs text-[#737373] font-mono flex items-center gap-2">
-              <span className="font-semibold text-[#262626]">森女孩 YAKI</span>
-              <span>·</span>
-              <span>約 6 分鐘閱讀</span>
-            </div>
-
-            <Link
-              href={`/stories/${encodeURIComponent(story.slug)}`}
-              className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-[#233F31] text-[#FAF7F2] text-xs font-semibold hover:bg-[#BA6341] transition-all duration-300 shadow-xs hover:shadow-md group/btn"
-            >
-              <span>閱讀完整專題</span>
-              <svg
-                className="w-3.5 h-3.5 transition-transform duration-300 group-hover/btn:translate-x-1"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </div>
-    </article>
-  );
-}
-
 export default function HomeClient({ initialStories, fetchError }: HomeClientProps) {
-  const [activeCategory, setActiveCategory] = useState<string>("全部");
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [likedStories, setLikedStories] = useState<Record<string, boolean>>({});
   const [newsletterEmail, setNewsletterEmail] = useState<string>("");
@@ -442,88 +324,10 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
     }, 300);
   };
 
-  // 1. 抓取最新或標註 Featured 的文章作為主打推薦
-  const featuredStory = useMemo(() => {
-    if (initialStories.length === 0) return null;
-    return initialStories.find((s) => s.featured) || initialStories[0];
+  // 只固定顯示最新 3 篇文章卡片
+  const latestStories = useMemo(() => {
+    return initialStories.slice(0, 3);
   }, [initialStories]);
-
-  // 2. 子分類標籤清單：「全部、長程縱走、單日步道、海外遠征、生活散文」與動態類別
-  const categories = useMemo(() => {
-    const defaultList = ["全部", "長程縱走", "單日步道", "海外遠征", "生活散文"];
-    const found = new Set<string>();
-    initialStories.forEach((s) => {
-      const cat = s.category?.trim();
-      if (cat) found.add(cat);
-    });
-    const list = ["全部"];
-    defaultList.slice(1).forEach((cat) => list.push(cat));
-    found.forEach((cat) => {
-      if (!list.includes(cat)) list.push(cat);
-    });
-    return list;
-  }, [initialStories]);
-
-  const matchesCategory = (story: NotionStory, category: string) => {
-    if (category === "全部") return true;
-    if (story.category === category) return true;
-
-    if (category === "長程縱走") {
-      return (
-        story.category === "長程徒步" ||
-        story.category === "PCT" ||
-        story.category === "TA" ||
-        story.title.includes("縱走") ||
-        story.title.includes("PCT") ||
-        story.title.includes("Te Araroa")
-      );
-    }
-    if (category === "單日步道") {
-      return (
-        story.category === "健行札記" ||
-        story.category === "步道踏查" ||
-        story.category === "毛孩野行" ||
-        story.category === "犬伴路線" ||
-        story.title.includes("古道")
-      );
-    }
-    if (category === "海外遠征") {
-      return (
-        story.category === "極光" ||
-        story.category === "雪地生活" ||
-        story.title.includes("紐西蘭") ||
-        story.title.includes("北極") ||
-        story.title.includes("Yellowknife")
-      );
-    }
-    if (category === "生活散文") {
-      return (
-        story.category === "話與畫" ||
-        story.category === "隨筆" ||
-        story.title.includes("話與畫") ||
-        story.title.includes("散文")
-      );
-    }
-    return false;
-  };
-
-  // 根據分類過濾文章
-  const filteredStories = useMemo(() => {
-    return initialStories.filter((s) => matchesCategory(s, activeCategory));
-  }, [initialStories, activeCategory]);
-
-  // 分類計數
-  const categoryCounts = useMemo(() => {
-    const counts: Record<string, number> = {};
-    categories.forEach((cat) => {
-      if (cat === "全部") {
-        counts[cat] = initialStories.length;
-      } else {
-        counts[cat] = initialStories.filter((s) => matchesCategory(s, cat)).length;
-      }
-    });
-    return counts;
-  }, [categories, initialStories]);
 
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -617,12 +421,12 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
             >
               關於森女孩
             </Link>
-            <a
-              href="#stories"
+            <Link
+              href="/stories"
               className="hover:text-[#C16744] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#C16744] hover:after:w-full after:transition-all"
             >
               山林日誌
-            </a>
+            </Link>
             <a
               href="#film-gallery"
               className="hover:text-[#C16744] transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#C16744] hover:after:w-full after:transition-all"
@@ -697,13 +501,13 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
             >
               關於森女孩
             </Link>
-            <a
-              href="#stories"
+            <Link
+              href="/stories"
               onClick={() => setMobileMenuOpen(false)}
-              className="py-2 border-b border-[#EFE8DC]"
+              className="py-2 border-b border-[#EFE8DC] hover:text-[#C16744] transition-colors"
             >
               山林日誌
-            </a>
+            </Link>
             <a
               href="#film-gallery"
               onClick={() => setMobileMenuOpen(false)}
@@ -1043,134 +847,66 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
         </div>
       </section>
 
-      {/* ─── 3. 精選內容 (Featured Stories from Notion) ─── */}
+      {/* ─── 3. 精選內容 (Latest 3 Stories from Notion / Curated) ─── */}
       <section id="stories" className="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <SectionHeader
             eyebrow="山林日誌 · JOURNAL ARCHIVE"
             title="山林日誌：拾起自然與創作的微光"
-            description="仿照新聞雜誌專題排版，記錄荒野長程縱走、單日古道踏查與海外遠征的每一步呼吸。"
+            description="從一日散步路線到中級山林秘境，用文字與筆觸記錄每一步的呼吸。"
           />
+
+          <Link
+            href="/stories"
+            className="hidden md:inline-flex items-center gap-2 text-xs font-semibold text-[#BA6341] hover:text-[#233F31] transition-colors group"
+          >
+            <span>瀏覽所有日誌專題</span>
+            <span className="group-hover:translate-x-1 transition-transform" aria-hidden="true">→</span>
+          </Link>
         </div>
 
-        {/* 1. 頂部主打推薦（Featured Hero） */}
-        {featuredStory && <HomeFeaturedHero story={featuredStory} />}
-
-        {/* 2. 子分類標籤過濾（Category Filter） */}
-        <div className="mb-10 pb-6 border-b border-[#E8E1D5]">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#BA6341]" aria-hidden="true" />
-              <span className="text-xs font-semibold tracking-wider text-[#BA6341] uppercase font-mono">
-                專題分類過濾 · CATEGORIES
-              </span>
-              <span className="text-xs text-[#737373] font-mono ml-2">
-                (共 {filteredStories.length} 篇報導)
-              </span>
+        {/* 固定只顯示最新 3 篇文章卡片，或空狀態 */}
+        {latestStories.length === 0 ? (
+          <div className="py-16 px-6 text-center bg-[#FDFBF7] rounded-3xl border border-dashed border-[#DDD4C5] max-w-xl mx-auto shadow-2xs">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#EBF1EC] text-[#233F31] flex items-center justify-center text-3xl shadow-inner">
+              🌲
+            </div>
+            <h3 className="text-xl font-semibold text-[#262626] mb-2">
+              山徑微光收集中，敬請期待
+            </h3>
+            <p className="text-sm font-normal text-[#4A4A4A] leading-relaxed max-w-md mx-auto">
+              {fetchError
+                ? "山徑信號稍弱，正在重新連線山林筆記中。歡迎稍後回來散步。"
+                : "森女孩正在山林深處整理筆記與照片。新故事即將在微風中送達，歡迎稍後回來散步。"}
+            </p>
+          </div>
+        ) : (
+          <div>
+            {/* 3 欄式卡片網格 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {latestStories.map((story) => (
+                <StoryCard
+                  key={story.id}
+                  story={story}
+                  isLiked={!!likedStories[story.id]}
+                  onToggleLike={() => toggleLike(story.id)}
+                />
+              ))}
             </div>
 
-            {/* Category Filter Pills with Motion micro-interactions */}
-            <div className="flex items-center gap-2 flex-wrap">
-              {categories.map((category) => {
-                const label = category?.trim() || "全部";
-                const isActive = activeCategory === category;
-                const count = categoryCounts[category] || 0;
-                return (
-                  <motion.button
-                    key={category || "all"}
-                    onClick={() => setActiveCategory(category)}
-                    whileHover={{ scale: 1.03, y: -1 }}
-                    whileTap={{ scale: 0.96 }}
-                    transition={{ type: "spring", stiffness: 450, damping: 26 }}
-                    className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-semibold cursor-pointer select-none transition-all duration-200 ${
-                      isActive
-                        ? "bg-[#233F31] text-[#FAF7F2] shadow-xs ring-1 ring-[#233F31]"
-                        : "bg-[#F3EDE3] text-[#4F5B52] hover:bg-[#EAE0D2] hover:text-[#262626] border border-[#E8E1D5]"
-                    }`}
-                  >
-                    <span>{label}</span>
-                    <span
-                      className={`text-[10px] px-1.5 py-0.2 rounded-full font-mono ${
-                        isActive
-                          ? "bg-white/20 text-white"
-                          : "bg-black/5 text-[#737373]"
-                      }`}
-                    >
-                      {count}
-                    </span>
-                  </motion.button>
-                );
-              })}
+            {/* 區塊底部醒目的膠囊按鈕 */}
+            <div className="mt-14 text-center">
+              <Link
+                href="/stories"
+                className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-[#233F31] text-[#FAF7F2] text-sm font-semibold hover:bg-[#BA6341] transition-all duration-300 shadow-sm hover:shadow-md active:scale-95 cursor-pointer group"
+              >
+                <span>瀏覽全部山林日誌</span>
+                <span className="group-hover:translate-x-1.5 transition-transform" aria-hidden="true">→</span>
+              </Link>
             </div>
           </div>
-        </div>
-
-        {/* 3. 文章卡片網格（Article Grid）或空狀態 */}
-        <AnimatePresence mode="wait">
-          {filteredStories.length === 0 ? (
-            <motion.div
-              key="empty-state"
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35, ease: "easeOut" }}
-              className="py-16 px-6 text-center bg-[#FDFBF7] rounded-3xl border border-dashed border-[#DDD4C5] max-w-xl mx-auto shadow-2xs"
-            >
-              <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-[#EBF1EC] text-[#233F31] flex items-center justify-center text-3xl shadow-inner">
-                🌲
-              </div>
-              <h3 className="text-xl font-semibold text-[#262626] mb-2">
-                此分類暫無更多專題
-              </h3>
-              <p className="text-sm font-normal text-[#4A4A4A] leading-relaxed max-w-md mx-auto">
-                {fetchError
-                  ? "山徑信號稍弱，正在重新連線山林筆記中。歡迎稍後回來散步。"
-                  : "森女孩正在山林深處整理筆記與照片。新故事即將在微風中送達，歡迎稍後回來散步。"}
-              </p>
-              {activeCategory !== "全部" && (
-                <motion.button
-                  whileTap={{ scale: 0.96 }}
-                  whileHover={{ scale: 1.02 }}
-                  onClick={() => setActiveCategory("全部")}
-                  className="mt-5 px-5 py-2 rounded-full bg-[#233F31] text-[#FAF7F2] text-xs font-semibold hover:bg-[#BA6341] transition-colors cursor-pointer shadow-xs"
-                >
-                  查看所有故事
-                </motion.button>
-              )}
-            </motion.div>
-          ) : (
-            <div>
-              <motion.div
-                key={activeCategory}
-                layout
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-              >
-                <AnimatePresence mode="popLayout">
-                  {filteredStories.map((story) => (
-                    <StoryCard
-                      key={story.id}
-                      story={story}
-                      isLiked={!!likedStories[story.id]}
-                      onToggleLike={() => toggleLike(story.id)}
-                    />
-                  ))}
-                </AnimatePresence>
-              </motion.div>
-
-              {/* 查看完整日誌存檔按鈕 */}
-              <div className="mt-14 text-center">
-                <Link
-                  href="/stories"
-                  className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-white border border-[#DDD4C5] text-xs sm:text-sm font-semibold text-[#233F31] hover:bg-[#233F31] hover:text-[#FAF7F2] hover:border-[#233F31] transition-all duration-300 shadow-2xs group"
-                >
-                  <span>瀏覽完整專題分類與日誌存檔（Journal Archive）</span>
-                  <span className="group-hover:translate-x-1 transition-transform">→</span>
-                </Link>
-              </div>
-            </div>
-          )}
-        </AnimatePresence>
+        )}
       </section>
 
       {/* ─── 3.5 純粹山野攝影牆 (Minimal Photo Gallery) ─── */}
@@ -1422,9 +1158,9 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
               <Link href="/about" className="hover:text-[#C16744] transition-colors">
                 關於森女孩
               </Link>
-              <a href="#stories" className="hover:text-[#C16744] transition-colors">
+              <Link href="/stories" className="hover:text-[#C16744] transition-colors">
                 山林日誌
-              </a>
+              </Link>
               <a href="#film-gallery" className="hover:text-[#C16744] transition-colors">
                 山野光影
               </a>

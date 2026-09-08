@@ -271,7 +271,7 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
 
             {/* 中間所有日誌快捷鍵 */}
             <Link
-              href="/#stories"
+              href="/stories"
               className="inline-flex items-center justify-center px-5 py-3 rounded-full bg-[#233F31] text-[#FAF7F2] text-xs font-semibold hover:bg-[#182C22] transition-all shadow-xs shrink-0 self-center"
             >
               <span>📚 全部日誌</span>
@@ -311,7 +311,7 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
               關於森女孩
             </Link>
             <Link
-              href="/#stories"
+              href="/stories"
               className="hover:text-[#BA6341] transition-colors font-semibold text-[#262626]"
             >
               山林日誌
