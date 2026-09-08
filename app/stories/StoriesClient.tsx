@@ -61,7 +61,12 @@ function getFallbackImage(category: string): string {
 function FeaturedHeroBanner({ story }: { story: NotionStory }) {
   const [imgError, setImgError] = useState(false);
   const fallback = useFallbackImage(story.category);
-  const displayImage = !imgError && story.coverImage ? story.coverImage : fallback;
+  const rawCover = story.coverImage || (story as any).cover || (story as any).CoverImage || null;
+  const safeCover =
+    rawCover && (rawCover.includes("file.notion.com") || rawCover.includes("file.notion.so"))
+      ? `/api/notion-image?url=${encodeURIComponent(rawCover)}`
+      : rawCover;
+  const displayImage = !imgError && safeCover ? safeCover : fallback;
 
   return (
     <article className="group relative bg-[#FDFBF7] rounded-3xl border border-[#E4DDD0] shadow-sm hover:shadow-xl hover:border-[#BA6341]/40 transition-all duration-500 overflow-hidden mb-16">
@@ -192,7 +197,12 @@ function MagazineArticleCard({
 }) {
   const [imgError, setImgError] = useState(false);
   const fallback = useFallbackImage(story.category);
-  const displayImage = !imgError && story.coverImage ? story.coverImage : fallback;
+  const rawCover = story.coverImage || (story as any).cover || (story as any).CoverImage || null;
+  const safeCover =
+    rawCover && (rawCover.includes("file.notion.com") || rawCover.includes("file.notion.so"))
+      ? `/api/notion-image?url=${encodeURIComponent(rawCover)}`
+      : rawCover;
+  const displayImage = !imgError && safeCover ? safeCover : fallback;
 
   return (
     <motion.article

@@ -164,7 +164,20 @@ export async function getPublishedStories(): Promise<NotionStory[]> {
     }
 
     if (results.length > 0) {
-      return results.map(parseNotionPage);
+      const stories = results.map(parseNotionPage);
+      return await Promise.all(
+        stories.map(async (story) => {
+          if (
+            story.coverImage &&
+            (story.coverImage.includes("file.notion.com") ||
+              story.coverImage.includes("file.notion.so"))
+          ) {
+            const resolved = await resolveCoverImageUrl(story.coverImage);
+            return { ...story, coverImage: resolved };
+          }
+          return story;
+        })
+      );
     }
 
     return getCuratedStories();
@@ -172,6 +185,34 @@ export async function getPublishedStories(): Promise<NotionStory[]> {
     console.error("Error in getPublishedStories(), falling back to curated stories:", error);
     return getCuratedStories();
   }
+}
+
+/**
+ * Resolves a cover image URL:
+ * - If it's a Notion internal file URL (file.notion.com / file.notion.so) containing a block ID,
+ *   resolves it via notion.blocks.retrieve to obtain the public authenticated S3 signed URL.
+ * - Otherwise returns the URL as is.
+ */
+export async function resolveCoverImageUrl(rawUrl: string | null): Promise<string | null> {
+  if (!rawUrl) return null;
+
+  if (rawUrl.includes("file.notion.com") || rawUrl.includes("file.notion.so")) {
+    try {
+      const parsed = new URL(rawUrl);
+      const blockId = parsed.searchParams.get("id");
+      if (blockId) {
+        const cleanId = blockId.replace(/-/g, "");
+        const block: any = await notion.blocks.retrieve({ block_id: cleanId });
+        if (block && block.type === "image" && block.image?.file?.url) {
+          return block.image.file.url;
+        }
+      }
+    } catch (err: any) {
+      console.warn("Failed to resolve Notion internal file URL to signed S3 URL:", err?.message);
+    }
+  }
+
+  return rawUrl;
 }
 
 /**
@@ -207,13 +248,41 @@ export function parseNotionPage(page: any): NotionStory {
   const rawDate = dateProp?.date?.start || "";
   const date = rawDate ? rawDate.replace(/-/g, ".") : "";
 
-  // CoverImage (url type or page cover fallback)
-  const coverProp = getProp(props, "CoverImage");
-  const coverImage =
-    coverProp?.url ||
-    page.cover?.external?.url ||
-    page.cover?.file?.url ||
-    null;
+  // CoverImage: Check "CoverImage", "cover", "Cover", "Cover_Image", "image"
+  const coverProp =
+    getProp(props, "CoverImage") ||
+    getProp(props, "Cover_Image") ||
+    getProp(props, "Cover") ||
+    getProp(props, "cover") ||
+    getProp(props, "Image") ||
+    getProp(props, "image");
+
+  let coverImage: string | null = null;
+  if (coverProp) {
+    if (coverProp.type === "url" && coverProp.url) {
+      coverImage = coverProp.url;
+    } else if (
+      coverProp.type === "files" &&
+      Array.isArray(coverProp.files) &&
+      coverProp.files.length > 0
+    ) {
+      const firstFile = coverProp.files[0];
+      coverImage = firstFile?.file?.url || firstFile?.external?.url || null;
+    } else if (
+      coverProp.type === "rich_text" &&
+      Array.isArray(coverProp.rich_text) &&
+      coverProp.rich_text.length > 0
+    ) {
+      coverImage = coverProp.rich_text.map((t: any) => t.plain_text).join("").trim() || null;
+    } else if (typeof coverProp.url === "string") {
+      coverImage = coverProp.url;
+    }
+  }
+
+  // Fallback to page cover if CoverImage property is not set
+  if (!coverImage && page.cover) {
+    coverImage = page.cover?.external?.url || page.cover?.file?.url || null;
+  }
 
   // Featured (checkbox type)
   const featProp = getProp(props, "Featured");
@@ -272,7 +341,15 @@ export async function getStoryBySlug(slug: string): Promise<NotionStory | null> 
     }
 
     if (results.length > 0) {
-      return parseNotionPage(results[0]);
+      const story = parseNotionPage(results[0]);
+      if (
+        story.coverImage &&
+        (story.coverImage.includes("file.notion.com") ||
+          story.coverImage.includes("file.notion.so"))
+      ) {
+        story.coverImage = await resolveCoverImageUrl(story.coverImage);
+      }
+      return story;
     }
 
     // Fallback: search all published stories by slug or ID

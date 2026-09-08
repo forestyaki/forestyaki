@@ -99,9 +99,15 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
       ? allStories[currentIndex + 1]
       : null;
 
+  const rawCover = story.coverImage || (story as any).cover || (story as any).CoverImage || null;
+  const safeCover =
+    rawCover && (rawCover.includes("file.notion.com") || rawCover.includes("file.notion.so"))
+      ? `/api/notion-image?url=${encodeURIComponent(rawCover)}`
+      : rawCover;
+
   const displayCover =
-    story.coverImage && !story.coverImage.includes("google.com/search")
-      ? story.coverImage
+    safeCover && !safeCover.includes("google.com/search")
+      ? safeCover
       : "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85";
 
   return (

@@ -80,14 +80,26 @@ function StoryCard({
 }) {
   const [imgError, setImgError] = useState(false);
 
+  // Robust check for cover image: story.coverImage || (story as any).cover || fallbackImage
+  const rawCover = story.coverImage || (story as any).cover || (story as any).CoverImage || null;
+
+  // If rawCover is a Notion internal URL, safely route through our /api/notion-image proxy
+  const safeCover = useMemo(() => {
+    if (!rawCover) return null;
+    if (rawCover.includes("file.notion.com") || rawCover.includes("file.notion.so")) {
+      return `/api/notion-image?url=${encodeURIComponent(rawCover)}`;
+    }
+    return rawCover;
+  }, [rawCover]);
+
   // Check if coverImage is a direct image URL (not a search page)
   const isDirectImage = Boolean(
-    story.coverImage &&
-      !story.coverImage.includes("google.com/search") &&
-      !story.coverImage.includes("google.com/url") &&
-      (story.coverImage.startsWith("http://") ||
-        story.coverImage.startsWith("https://") ||
-        story.coverImage.startsWith("/"))
+    safeCover &&
+      !safeCover.includes("google.com/search") &&
+      !safeCover.includes("google.com/url") &&
+      (safeCover.startsWith("http://") ||
+        safeCover.startsWith("https://") ||
+        safeCover.startsWith("/"))
   );
 
   // High-quality warm atmospheric mountain & hiking photo fallbacks
@@ -105,7 +117,7 @@ function StoryCard({
     return "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=85";
   }, [story.category]);
 
-  const displayImage = isDirectImage && !imgError ? story.coverImage! : fallbackImage;
+  const displayImage = isDirectImage && !imgError && safeCover ? safeCover : fallbackImage;
 
   return (
     <motion.article
