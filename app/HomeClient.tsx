@@ -733,12 +733,9 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                   <p className="text-xs text-[#737373] mt-1 font-mono tracking-wider">
                     WORDS × ART × HIKER
                   </p>
-                  <div className="flex items-center gap-2 mt-3">
-                    <span className="px-2.5 py-0.5 rounded-full text-[11px] bg-[#EAE3D5] text-[#554E43]">
-                      台北 / 山林常駐
-                    </span>
-                    <span className="px-2.5 py-0.5 rounded-full text-[11px] bg-[#FBEBE5] text-[#C16744]">
-                      毛孩系旅人
+                  <div className="flex items-center justify-center mt-3">
+                    <span className="px-3 py-1 rounded-full text-xs font-medium bg-[#EAE3D5]/80 text-[#4A4A4A] border border-[#DDD5C7]/60">
+                      徒步者 / 寫字的人
                     </span>
                   </div>
                 </div>
@@ -763,44 +760,16 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                 className="mb-5"
               />
 
-              <p className="text-base font-normal text-[#4A4A4A] leading-relaxed mb-4">
-                嗨，我是森女孩。平日是文字與插畫創作者，一到週末就成了往山裡奔跑的健行者。身旁總是跟著四歲的大狗「小栗」，牠的腳步輕快，提醒著我抬頭看看樹冠灑落的斑駁陽光。
-              </p>
-              <p className="text-base font-normal text-[#4A4A4A] leading-relaxed mb-6">
-                對我而言，登山從不是為了「征服」哪座山頭，而是一場把自己還給自然的溫柔儀式。我用畫筆捕捉微光、用紙筆記下每條步道的泥土觸感與氣息，並把適合犬伴同行的健行指南與創作日常，整理在這裡與你分享。
-              </p>
-
-              {/* Three Pillar Badges */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full">
-                <div className="bg-[#FFFEFA] p-3.5 rounded-xl border border-[#E2DACB] shadow-2xs">
-                  <div className="text-[#262626] font-semibold text-sm flex items-center gap-2 mb-1">
-                    <span>⛰️</span>
-                    <span>穿梭山林</span>
-                  </div>
-                  <p className="text-xs font-normal text-[#4A4A4A] leading-relaxed">
-                    偏愛中級山巨木、靜謐古道與高山雲海。
-                  </p>
-                </div>
-
-                <div className="bg-[#FFFEFA] p-3.5 rounded-xl border border-[#E2DACB] shadow-2xs">
-                  <div className="text-[#262626] font-semibold text-sm flex items-center gap-2 mb-1">
-                    <span>🐾</span>
-                    <span>犬伴健行</span>
-                  </div>
-                  <p className="text-xs font-normal text-[#4A4A4A] leading-relaxed">
-                    實地踏查友善路線，注重毛孩關節與安全。
-                  </p>
-                </div>
-
-                <div className="bg-[#FFFEFA] p-3.5 rounded-xl border border-[#E2DACB] shadow-2xs">
-                  <div className="text-[#262626] font-semibold text-sm flex items-center gap-2 mb-1">
-                    <span>🎨</span>
-                    <span>話與畫創作</span>
-                  </div>
-                  <p className="text-xs font-normal text-[#4A4A4A] leading-relaxed">
-                    手繪山林插圖、書寫自然與生活溫潤散文。
-                  </p>
-                </div>
+              <div className="space-y-4 text-base font-normal text-[#4A4A4A] leading-relaxed">
+                <p>
+                  嗨，我是 Yaki。記錄生活的書寫與手作者，也是一名長途徒步與戶外漫遊者。
+                </p>
+                <p>
+                  曾與伴侶在太平洋屋脊步道（PCT）走過四千多公里的荒野，在洛磯山脈的雪季與北緯65度的極光間生活。如今的路上，身邊還有踏著輕快步伐的小黑狗 Ronnie，我們著迷於在山林裡安靜地走著，讓風和泥土慢慢洗去生活裡的雜音。
+                </p>
+                <p>
+                  在這裡，我用紙筆、色彩與鏡頭，整理步道上的風霜與微光、夥伴與毛孩同行的日常，以及雙手創作帶來的平靜。願這些文字與畫面，能為你帶來一片寧靜的山林綠意。
+                </p>
               </div>
             </div>
           </div>
