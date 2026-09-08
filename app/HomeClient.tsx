@@ -378,11 +378,11 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
           { opacity: 1, y: 0, duration: 0.4 },
           "-=0.25"
         )
-        // 步驟 5：右側拍立得相框與底部數據統計卡片優雅定位 (opacity: 0 -> 1，y: 15 -> 0，0.5s)
+        // 步驟 5：右側照片卡片優雅定位 (opacity: 0 -> 1，y: 15 -> 0，0.5s)
         .fromTo(
-          [".gsap-hero-polaroid", ".gsap-hero-stats"],
+          ".gsap-hero-polaroid",
           { opacity: 0, y: 15 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
+          { opacity: 1, y: 0, duration: 0.5 },
           "-=0.25"
         );
     }, rootRef);
@@ -685,24 +685,6 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                     </svg>
                     <span>收聽 Podcast</span>
                   </a>
-                </div>
-              </div>
-
-              {/* Stats Card */}
-              <div className="gsap-hero-stats mt-6 sm:mt-8 w-full max-w-md mx-auto lg:mx-0 rounded-2xl bg-[#FDFBF7]/90 backdrop-blur-md border border-stone-200/60 shadow-xs p-3.5 sm:py-4 sm:px-5">
-                <div className="grid grid-cols-3 divide-x divide-stone-200/80 text-center">
-                  <div className="px-2">
-                    <div className="text-xl sm:text-2xl font-bold text-[#1E3F20] font-serif">48+</div>
-                    <div className="text-[11px] sm:text-xs text-[#737373] font-medium mt-0.5 whitespace-nowrap">百岳與古道</div>
-                  </div>
-                  <div className="px-2">
-                    <div className="text-xl sm:text-2xl font-bold text-[#C16744] font-serif">32 條</div>
-                    <div className="text-[11px] sm:text-xs text-[#737373] font-medium mt-0.5 whitespace-nowrap">犬伴友善路線</div>
-                  </div>
-                  <div className="px-2">
-                    <div className="text-xl sm:text-2xl font-bold text-[#1E3F20] font-serif">100%</div>
-                    <div className="text-[11px] sm:text-xs text-[#737373] font-medium mt-0.5 whitespace-nowrap">山林手作感</div>
-                  </div>
                 </div>
               </div>
             </div>
