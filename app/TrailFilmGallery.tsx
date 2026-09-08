@@ -22,8 +22,8 @@ export const GALLERY_PHOTOS: LightboxPhoto[] = [
     imageUrl: "/images/gallery-2.jpg",
     title: "被樹擁抱",
     location: "Forest Trail",
-    description: "停下腳步，把疲憊交給一棵千年的巨木溫柔擁抱。",
-    note: "停下腳步，把疲憊交給一棵千年的巨木溫柔擁抱。",
+    description: "走累了停下腳步，靠在一棵巨大的老樹旁喘口氣。",
+    note: "走累了停下腳步，靠在一棵巨大的老樹旁喘口氣。",
     aspect: "aspect-[3/4]",
   },
   {
@@ -62,8 +62,8 @@ export const GALLERY_PHOTOS: LightboxPhoto[] = [
     imageUrl: "/images/gallery-6.jpg",
     title: "開滿花的圈谷",
     location: "雪山圈谷 · 3,886m",
-    description: "在冰河遺跡的懷抱中，遇見了一整片盛開的杜鵑花海。",
-    note: "在冰河遺跡的懷抱中，遇見了一整片盛開的杜鵑花海。",
+    description: "五月的雪山圈谷，遇見了一整片盛開的高山杜鵑。",
+    note: "五月的雪山圈谷，遇見了一整片盛開的高山杜鵑。",
     aspect: "aspect-[4/3]",
   },
 ];

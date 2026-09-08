@@ -21,13 +21,13 @@ export const metadata: Metadata = {
     default: "森女孩的話與畫｜Yaki 的山林日誌與戶外創作",
     template: "%s｜森女孩的話與畫",
   },
-  description: "記錄荒野長程縱走、戶外生活觀察與藝術手作的手帳日誌。",
+  description: "走路、看書、畫畫，和黑狗 Ronnie 的山林日常。記錄長途徒步與生活散文。",
   verification: {
     google: "ViCWedDJe-0R04f0QeKsAEh6dbBKjZFsT3kOWYwIhxE",
   },
   openGraph: {
     title: "森女孩的話與畫｜Yaki 的山林日誌與戶外創作",
-    description: "記錄荒野長程縱走、戶外生活觀察與藝術手作的手帳日誌。",
+    description: "走路、看書、畫畫，和黑狗 Ronnie 的山林日常。記錄長途徒步與生活散文。",
     url: siteUrl,
     siteName: "森女孩的話與畫",
     locale: "zh_TW",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "森女孩的話與畫｜Yaki 的山林日誌與戶外創作",
-    description: "記錄荒野長程縱走、戶外生活觀察與藝術手作的手帳日誌。",
+    description: "走路、看書、畫畫，和黑狗 Ronnie 的山林日常。記錄長途徒步與生活散文。",
     images: [
       "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&h=630&q=85",
     ],

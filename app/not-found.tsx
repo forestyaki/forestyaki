@@ -4,8 +4,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "404 步道迷蹤",
-  description: "這條小徑似乎通往了未知的深林。可能文章已被移至其他篇章，或連結稍有偏差。",
+  title: "404 找不到頁面｜森女孩的話與畫",
+  description: "這條小徑似乎走不通。找不到這個頁面，可能連結有誤，或者文章已經移到別的位址。",
 };
 
 export default function NotFound() {
@@ -53,18 +53,18 @@ export default function NotFound() {
           {/* 陶土橘小標 */}
           <div className="inline-flex items-center justify-center gap-2 text-xs font-mono font-medium tracking-widest text-[#BA6341] uppercase mb-3">
             <span className="w-4 h-px bg-[#BA6341]" aria-hidden="true" />
-            <span>404 · 步道迷蹤</span>
+            <span>404 · 找不到頁面</span>
             <span className="w-4 h-px bg-[#BA6341]" aria-hidden="true" />
           </div>
 
           {/* 大標題 */}
           <h1 className="text-2xl sm:text-3xl font-bold text-[#262626] font-sans mb-3 leading-snug">
-            這條小徑似乎通往了未知的深林
+            這條小徑似乎走不通
           </h1>
 
           {/* 說明文字 */}
           <p className="text-sm text-[#4A4A4A] font-normal leading-relaxed mb-8 max-w-sm mx-auto">
-            可能文章已被移至其他篇章，或連結稍有偏差。深呼吸，讓我們循著林道足跡回到熟悉的營地。
+            找不到這個頁面，可能連結有誤，或者文章已經移到別的位址。循著腳步回首頁看看吧。
           </p>
 
           {/* 陶土橘主要按鈕 */}
@@ -73,7 +73,7 @@ export default function NotFound() {
               href="/"
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#BA6341] hover:bg-[#A35232] text-white text-sm font-semibold transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 cursor-pointer group w-full sm:w-auto"
             >
-              <span>返回山林首頁</span>
+              <span>返回首頁</span>
               <span className="group-hover:translate-x-1 transition-transform" aria-hidden="true">
                 →
               </span>
@@ -87,11 +87,11 @@ export default function NotFound() {
             </Link>
             <span>•</span>
             <Link href="/about" className="hover:text-[#BA6341] transition-colors">
-              關於森女孩
+              關於我
             </Link>
             <span>•</span>
             <Link href="/#podcast" className="hover:text-[#BA6341] transition-colors">
-              聲音漫遊
+              Podcast
             </Link>
           </div>
         </div>
@@ -99,7 +99,7 @@ export default function NotFound() {
 
       {/* ─── 底部溫暖簽名 ─── */}
       <footer className="w-full py-6 text-center text-xs text-[#737373] border-t border-[#E8E1D5]">
-        <p>願每座山都溫柔以待，願每次迷途都是遇見美景的開始。</p>
+        <p>走過的路不會白費，循著腳步回首頁看看吧。</p>
       </footer>
     </div>
   );

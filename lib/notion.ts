@@ -241,7 +241,7 @@ export function parseNotionPage(page: any): NotionStory {
   const sumProp = getProp(props, "Summary");
   const summary =
     sumProp?.rich_text?.map((t: any) => t.plain_text).join("") ||
-    "在千米之上的雲霧與落葉泥土間，記錄生活與山徑的微光。";
+    "記錄長途徒步、山林日常與手繪創作的隨筆。";
 
   // Date (date type)
   const dateProp = getProp(props, "Date");

@@ -641,7 +641,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                     href="#stories"
                     className="group relative inline-flex items-center justify-center gap-3 px-7 py-3.5 rounded-full bg-[#D96B43] text-white font-semibold text-base shadow-sm hover:bg-[#C25A34] hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:scale-[0.98] transition-all duration-200 cursor-pointer"
                   >
-                    <span>探索山林日誌</span>
+                    <span>看山林日誌</span>
                     <span className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-all duration-300">
                       <svg
                         className="w-3.5 h-3.5"
@@ -786,15 +786,15 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
           <SectionHeader
             eyebrow="山林日誌 · JOURNAL ARCHIVE"
-            title="山林日誌：拾起自然與創作的微光"
-            description="從一日散步路線到中級山林秘境，用文字與筆觸記錄每一步的呼吸。"
+            title="山林日誌"
+            description="記下長途徒步走過的路、單日散步與生活裡的隨筆。"
           />
 
           <Link
             href="/stories"
             className="hidden md:inline-flex items-center gap-2 text-xs font-semibold text-[#BA6341] hover:text-[#233F31] transition-colors group"
           >
-            <span>瀏覽所有日誌專題</span>
+            <span>看全部文章</span>
             <span className="group-hover:translate-x-1 transition-transform" aria-hidden="true">→</span>
           </Link>
         </div>
@@ -806,12 +806,12 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
               🌲
             </div>
             <h3 className="text-xl font-semibold text-[#262626] mb-2">
-              山徑微光收集中，敬請期待
+              文章整理中
             </h3>
             <p className="text-sm font-normal text-[#4A4A4A] leading-relaxed max-w-md mx-auto">
               {fetchError
-                ? "山徑信號稍弱，正在重新連線山林筆記中。歡迎稍後回來散步。"
-                : "森女孩正在山林深處整理筆記與照片。新故事即將在微風中送達，歡迎稍後回來散步。"}
+                ? "目前連線不太順暢，正在重新載入文章中。"
+                : "文章還在陸續整理中，寫好就會更新在這裡。"}
             </p>
           </div>
         ) : (
@@ -834,7 +834,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                 href="/stories"
                 className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-[#233F31] text-[#FAF7F2] text-sm font-semibold hover:bg-[#BA6341] transition-all duration-300 shadow-sm hover:shadow-md active:scale-95 cursor-pointer group"
               >
-                <span>瀏覽全部山林日誌</span>
+                <span>看全部文章</span>
                 <span className="group-hover:translate-x-1.5 transition-transform" aria-hidden="true">→</span>
               </Link>
             </div>
@@ -855,9 +855,9 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
         <div className="max-w-6xl mx-auto px-6">
           {/* 區塊統一大標頭 */}
           <SectionHeader
-            eyebrow="TRAIL VOICES & CONNECT · 山野迴響與社群"
-            title="在山嶺與日常之間，收錄微光與話語"
-            description="聆聽步道上的聲音碎片，或透過文字與社群與我並肩同行。"
+            eyebrow="PODCAST & CONNECT · 聲音與社群"
+            title="步道上的聲音與日常碎念"
+            description="把路上收錄的自然風聲、旅途故事和生活雜記放在這裡。"
             titleClassName="text-2xl md:text-3xl font-bold text-[#262626]"
             className="mb-12"
           />
@@ -868,12 +868,12 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
             <div className="lg:col-span-7">
               <div className="h-full bg-white rounded-3xl p-6 md:p-8 border border-stone-200/80 shadow-sm flex flex-col justify-between transition-all duration-300">
                 <div>
-                  {/* 頂部標註：小標「山林聲音札記」+ 狀態標籤「最新單集 · 即刻收聽」 */}
+                  {/* 頂部標註：小標「自然收音與閒聊」+ 狀態標籤「最新單集」 */}
                   <div className="flex flex-wrap items-center justify-between gap-3 mb-5">
                     <div className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-[#BA6341]" aria-hidden="true" />
                       <span className="text-xs font-semibold tracking-wider text-[#BA6341] uppercase font-mono">
-                        山林聲音札記
+                        自然收音與閒聊
                       </span>
                     </div>
                     <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#EBF1EC] text-[#233F31] text-xs font-semibold shadow-2xs">
@@ -881,7 +881,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#1DB954] opacity-75" />
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-[#1DB954]" />
                       </span>
-                      <span>最新單集 · 即刻收聽</span>
+                      <span>最新單集</span>
                     </span>
                   </div>
 
@@ -910,7 +910,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                   {/* 下方隨筆說明 */}
                   <div className="bg-[#FAF7F2] rounded-2xl p-4 border border-[#EBE4D5] mb-6">
                     <p className="text-xs sm:text-sm font-normal text-[#4A4A4A] leading-relaxed">
-                      最新單集隨筆：北極圈零下 20 度的雪地生活與極光守候，以及紐西蘭 3,000 公里徒步時南阿爾卑斯山的溪流與清冽山風收音。
+                      北極圈零下 20 度的雪地生活與極光，還有在紐西蘭走路時收錄的溪流與風聲。
                     </p>
                   </div>
                 </div>
@@ -918,7 +918,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                 {/* 底部操作列 */}
                 <div className="pt-4 border-t border-[#EFE8DC] flex flex-wrap items-center justify-between gap-3">
                   <div className="text-xs text-[#737373] font-mono">
-                    <span>🎧 隔週更新 · 自然收音與創作隨筆</span>
+                    <span>🎧 隔週更新 · 自然收音與生活隨筆</span>
                   </div>
                   <a
                     href="https://open.spotify.com/show/1pusMjoawvb6plDusPEePP"
@@ -950,7 +950,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                     Instagram 與社群交流
                   </h4>
                   <p className="text-xs text-[#4A4A4A] mb-4 leading-relaxed">
-                    追蹤日常動態，欣賞手繪插畫、毛孩步道寫真與即時山況分享。
+                    平常畫的圖、小狗 Ronnie 的日常，還有一些在路上的隨手紀錄。
                   </p>
 
                   <div className="flex flex-col gap-2.5">
@@ -990,7 +990,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                           <div className="text-xs font-semibold text-[#262626] group-hover:text-[#C16744] transition-colors">
                             Threads
                           </div>
-                          <div className="text-[11px] text-[#737373]">裝備碎碎念與即時山況交流</div>
+                          <div className="text-[11px] text-[#737373]">隨手碎碎念與裝備心得</div>
                         </div>
                       </div>
                       <span className="text-xs font-medium text-[#737373] group-hover:text-[#C16744] group-hover:translate-x-0.5 transition-all">
@@ -1014,16 +1014,16 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                     </span>
                   </div>
                   <h4 className="text-lg font-bold text-white font-sans mb-1">
-                    收到下一封山野信件
+                    山野信件
                   </h4>
                   <p className="text-xs text-[#CCD9CF] mb-4 leading-relaxed">
-                    每月一封精選電子報，包含私人私房路線 GPX 軌跡檔、毛孩友善評比與手繪插圖。
+                    偶爾寫信分享走過的路線、帶狗狗爬山的心得和手繪圖，直接寄到你的信箱。
                   </p>
 
                   {subscribed ? (
                     <div className="bg-white/10 border border-white/20 rounded-xl p-3 text-xs text-[#E1EFE4] flex items-center gap-2">
                       <span>🌿</span>
-                      <span>感謝訂閱！第一封山野信件已準備寄出。</span>
+                      <span>感謝訂閱，信件寄出時會通知你。</span>
                     </div>
                   ) : (
                     <form onSubmit={handleSubscribe} className="flex gap-2">
@@ -1039,7 +1039,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                         type="submit"
                         className="px-4 py-2.5 rounded-xl bg-[#BA6341] hover:bg-[#A35232] active:scale-95 text-white font-semibold text-xs transition-all shadow-xs whitespace-nowrap cursor-pointer shrink-0"
                       >
-                        暖心訂閱
+                        訂閱信件
                       </button>
                     </form>
                   )}
@@ -1079,7 +1079,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                 </span>
               </a>
               <p className="text-xs text-[#737373] max-w-sm leading-relaxed">
-                願每座山都溫柔以待，願每次前行都有微光相伴。用雙腳踩出平靜，用畫筆留下微風。
+                走過的路、不想忘記的對話，還有閃閃發光的日常。
               </p>
             </div>
 
@@ -1144,11 +1144,11 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
           <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#737373] gap-4">
             <div>© 2024–2026 森女孩的話與畫 · FOREST GIRL&apos;S WORDS &amp; ART</div>
             <div className="flex items-center gap-4 text-[11px] text-[#737373]">
-              <span>犬伴同行友善倡議</span>
+              <span>與狗同行</span>
               <span>·</span>
-              <span>無痕山林 (LNT) 實踐者</span>
+              <span>無痕山林</span>
               <span>·</span>
-              <span>Made with warm earth vibes</span>
+              <span>步道生活</span>
             </div>
           </div>
         </div>
@@ -1189,10 +1189,10 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                     <span>FOREST TREE HOLE</span>
                   </div>
                   <h3 className="text-2xl sm:text-3xl font-semibold text-[#262626] tracking-tight">
-                    山林樹洞信箱
+                    思想樹洞
                   </h3>
                   <p className="text-xs sm:text-sm font-normal text-[#4A4A4A] leading-relaxed mt-2">
-                    走累了或有想說的話，寫封信給樹洞吧，我會在 Podcast 裡溫柔回覆你。
+                    有想說的話、走在路上的心情，都可以投進樹洞。我會在 Podcast 裡挑一些來聊聊。
                   </p>
                 </div>
 
@@ -1222,7 +1222,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                       rows={5}
                       value={treeHoleMessage}
                       onChange={(e) => setTreeHoleMessage(e.target.value)}
-                      placeholder="寫下你今天的心情、登山故事或生活煩惱..."
+                      placeholder="寫下你的故事、走在路上的心情，或是生活裡的碎念..."
                       className="w-full px-4 py-3 rounded-2xl bg-[#FFFEFA] border border-[#E0D8CB] text-xs sm:text-sm text-[#262626] placeholder-[#9BA59D] focus:outline-none focus:ring-2 focus:ring-[#C16744] transition-all resize-none leading-relaxed"
                     />
                   </div>
@@ -1257,12 +1257,12 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                     {isSubmittingTreeHole ? (
                       <>
                         <span className="animate-spin text-base">🍃</span>
-                        <span>信件飄往森林中...</span>
+                        <span>正在寄出...</span>
                       </>
                     ) : (
                       <>
                         <span>🕊️</span>
-                        <span>將信件投遞進樹洞</span>
+                        <span>投遞到樹洞</span>
                       </>
                     )}
                   </button>
@@ -1275,11 +1275,11 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                   🌿
                 </div>
                 <h3 className="text-2xl font-semibold text-[#262626] mb-2">
-                  信件已悄悄落入樹洞，謝謝你的分享。
+                  信件已經投進樹洞了。
                 </h3>
                 <p className="text-xs sm:text-sm font-normal text-[#4A4A4A] leading-relaxed max-w-sm mb-6">
                   {submittedSenderName ? `親愛的 ${submittedSenderName}，` : ""}
-                  謝謝你願意跟我分享你的心情與故事。這封信已經靜靜躺在樹洞裡，我會在錄製《森女孩的話與畫》Podcast 時細細閱讀，願今天的微風也能帶給你溫柔的陪伴。
+                  謝謝你的分享。這封信我已經收到了，錄製 Podcast 時會找時間在節目裡聊聊。祝你有平靜愉快的一天。
                 </p>
                 <button
                   onClick={closeTreeHoleModal}

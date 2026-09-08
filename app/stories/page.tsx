@@ -5,13 +5,11 @@ import StoriesClient from "./StoriesClient";
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: "山林日誌 · JOURNAL ARCHIVE | 森女孩的話與畫",
-  description:
-    "仿照新聞雜誌專題排版，收錄荒野長程縱走、單日古道踏查與海外遠征深度專題。",
+  title: "山林日誌｜森女孩的話與畫",
+  description: "收錄長途徒步日記、單日步道紀錄與海外漫遊隨筆。",
   openGraph: {
-    title: "山林日誌 · JOURNAL ARCHIVE | 森女孩的話與畫",
-    description:
-      "仿照新聞雜誌專題排版，收錄荒野長程縱走、單日古道踏查與海外遠征深度專題。",
+    title: "山林日誌｜森女孩的話與畫",
+    description: "收錄長途徒步日記、單日步道紀錄與海外漫遊隨筆。",
   },
 };
 

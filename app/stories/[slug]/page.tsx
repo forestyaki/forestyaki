@@ -217,10 +217,10 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
             <div className="my-8 p-8 sm:p-10 rounded-3xl bg-[#FFFEFA] border border-dashed border-[#DDD4C5] text-center shadow-2xs">
               <div className="text-3xl mb-3">🍃</div>
               <h3 className="text-lg font-semibold text-[#262626] mb-1">
-                步道筆記整理中，敬請期待...
+                日誌內容整理中...
               </h3>
               <p className="text-xs text-[#737373] leading-relaxed max-w-sm mx-auto mb-4">
-                作者正在山徑路上採集靈感與整理文字手帳，完整日誌內容將陸續同步發布。
+                這篇日誌的內容還在整理中，整理好後會更新在這裡。
               </p>
               <span className="inline-block px-3 py-1 rounded-full bg-[#FAF7F2] border border-[#E0D8CB] text-[11px] font-mono text-[#737373]">
                 NOTION PAGE ID: {story.id}
@@ -239,16 +239,16 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
               </div>
               <div className="flex-1">
                 <div className="text-base font-semibold text-[#262626] mb-1">
-                  森女孩 Yaki &amp; 犬伴小栗 🐾
+                  Yaki &amp; Ronnie 🐾
                 </div>
                 <p className="text-xs text-[#737373] leading-relaxed mb-3">
-                  用雙腳踩出平靜，用畫筆留下微風。感謝你讀到這裡，願每座山都溫柔以待。
+                  謝謝你讀到這裡。如果這些文字有帶給你一點平靜，那就太好了。
                 </p>
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 text-[11px] text-[#BA6341] font-mono">
                   <span>#山林日誌</span>
-                  <span>#長程徒步</span>
-                  <span>#犬伴同行</span>
-                  <span>#話與畫</span>
+                  <span>#長途徒步</span>
+                  <span>#與狗同行</span>
+                  <span>#生活隨筆</span>
                 </div>
               </div>
             </div>

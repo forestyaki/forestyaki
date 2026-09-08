@@ -95,7 +95,7 @@ function FeaturedHeroBanner({ story }: { story: NotionStory }) {
             <div className="absolute top-5 left-5 z-10 flex items-center gap-2">
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#BA6341] text-white text-xs font-semibold tracking-wide shadow-sm">
                 <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
-                <span>焦點專題 · FEATURED</span>
+                <span>精選文章 · FEATURED</span>
               </span>
             </div>
 
@@ -123,7 +123,7 @@ function FeaturedHeroBanner({ story }: { story: NotionStory }) {
                 {story.category}
               </span>
               <span className="text-xs text-[#737373] font-mono uppercase tracking-wider">
-                深入報導 · IN-DEPTH
+                LONG READ
               </span>
             </div>
 
@@ -152,7 +152,7 @@ function FeaturedHeroBanner({ story }: { story: NotionStory }) {
               href={`/stories/${encodeURIComponent(story.slug)}`}
               className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#233F31] text-[#FAF7F2] text-sm font-semibold hover:bg-[#BA6341] transition-all duration-300 shadow-xs hover:shadow-md group/btn"
             >
-              <span>閱讀完整專題</span>
+              <span>閱讀文章</span>
               <svg
                 className="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1"
                 viewBox="0 0 24 24"
@@ -282,11 +282,11 @@ function MagazineArticleCard({
       {/* 卡片內容區 */}
       <div className="p-6 flex flex-col flex-1 justify-between">
         <div>
-          {/* 分類與專題標註 */}
+          {/* 分類與札記標註 */}
           <div className="flex items-center gap-2 text-xs text-[#737373] mb-2.5 font-mono">
             <span className="font-semibold text-[#BA6341]">{story.category}</span>
             <span>·</span>
-            <span>專題札記</span>
+            <span>山林札記</span>
           </div>
 
           {/* 簡短標題 */}
@@ -488,8 +488,8 @@ export default function StoriesClient({
         <div className="mb-12">
           <SectionHeader
             eyebrow="山林日誌 · JOURNAL ARCHIVE"
-            title="山林日誌：自然筆觸與專題報導"
-            description="仿照新聞雜誌專題排版，記錄荒野長程縱走、單日古道慢行與海外遠征的每一步呼吸。"
+            title="山林日誌"
+            description="收錄長途徒步走過的路、單日步道紀行與生活隨筆。"
           />
         </div>
 
@@ -502,10 +502,10 @@ export default function StoriesClient({
             <div className="flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-[#BA6341]" aria-hidden="true" />
               <span className="text-xs font-semibold tracking-wider text-[#BA6341] uppercase font-mono">
-                專題分類過濾 · CATEGORIES
+                分類 · CATEGORIES
               </span>
               <span className="text-xs text-[#737373] font-mono ml-2">
-                (共 {filteredStories.length} 篇報導)
+                (共 {filteredStories.length} 篇)
               </span>
             </div>
 
@@ -556,16 +556,16 @@ export default function StoriesClient({
                 🌲
               </div>
               <h3 className="text-xl font-bold text-[#262626] mb-2">
-                此分類暫無更多專題
+                這個分類目前還沒有文章
               </h3>
               <p className="text-sm text-[#4A4A4A] leading-relaxed max-w-sm mx-auto mb-6">
-                森女孩正在山徑深處採集靈感，歡迎點擊下方按鈕瀏覽所有山林日誌。
+                內容正在陸續整理中，歡迎先看看其他分類的文章。
               </p>
               <button
                 onClick={() => setActiveCategory("全部")}
                 className="px-6 py-2.5 rounded-full bg-[#233F31] text-[#FAF7F2] text-xs font-semibold hover:bg-[#BA6341] transition-colors cursor-pointer shadow-xs"
               >
-                查看全部文章
+                查看所有文章
               </button>
             </motion.div>
           ) : (

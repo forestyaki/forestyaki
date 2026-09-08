@@ -48,14 +48,14 @@ export const EPISODES_DATA: PodcastEpisode[] = [
   {
     id: "ep-06",
     episodeNumber: "EP.06",
-    title: "犬伴同行小指南：帶著大狗小栗爬中級山的快樂與注意事項",
-    category: "犬伴日常 · 步道踏查",
+    title: "與狗同行小指南：帶著小黑狗 Ronnie 走步道的日常與注意事項",
+    category: "與狗同行 · 步道生活",
     categoryBadgeClass: "bg-[#C16744] text-white",
     date: "2024.08.12",
     duration: "35 分鐘",
     description:
-      "黃金獵犬小栗已經陪我走了四年山路。從水源檢查、跳蚤壁蝨預防、到如何判斷狗狗的體能臨界點，帶著毛孩爬山雖然累，卻能看見截然不同的自然視角。",
-    soundscapeNote: "🐾 聲音特色：小栗踩過淺溪涉水的歡快水花、松針步道上的輕快小跑聲。",
+      "小黑狗 Ronnie 陪我走過許多步道。從水源檢查、跳蚤壁蝨預防、到注意狗狗的體力，帶著狗狗爬山雖然要多花心思，卻能看見截然不同的自然視角。",
+    soundscapeNote: "🐾 聲音特色：Ronnie 踩過淺溪的水花聲、松針步道上的輕快小跑聲。",
     spotifyUrl: "https://open.spotify.com/show/1pusMjoawvb6plDusPEePP",
     embedUrl: "https://open.spotify.com/embed/show/1pusMjoawvb6plDusPEePP?utm_source=generator&theme=0",
   },

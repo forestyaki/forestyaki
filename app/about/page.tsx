@@ -3,19 +3,16 @@ import Image from "next/image";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "關於森女孩 · 漫步山徑的創作者",
-  description:
-    "在山嶺與稿紙之間，拾起最純粹的生活微光。認識 Yaki 與她的荒野足跡。",
+  title: "關於 Yaki｜森女孩的話與畫",
+  description: "嗨，我是 Yaki。長途徒步者、寫字畫畫的人，和一隻小黑狗 Ronnie。",
   openGraph: {
-    title: "關於森女孩 · 漫步山徑的創作者",
-    description:
-      "在山嶺與稿紙之間，拾起最純粹的生活微光。認識 Yaki 與她的荒野足跡。",
+    title: "關於 Yaki｜森女孩的話與畫",
+    description: "嗨，我是 Yaki。長途徒步者、寫字畫畫的人，和一隻小黑狗 Ronnie。",
   },
   twitter: {
     card: "summary_large_image",
-    title: "關於森女孩 · 漫步山徑的創作者",
-    description:
-      "在山嶺與稿紙之間，拾起最純粹的生活微光。認識 Yaki 與她的荒野足跡。",
+    title: "關於 Yaki｜森女孩的話與畫",
+    description: "嗨，我是 Yaki。長途徒步者、寫字畫畫的人，和一隻小黑狗 Ronnie。",
   },
 };
 
@@ -29,38 +26,38 @@ interface Milestone {
 const MILESTONES: Milestone[] = [
   {
     year: "2019",
-    title: "初探百岳與中級山秘境",
+    title: "開始走入百岳與中級山",
     location: "台灣 · 中央山脈與雪山山脈",
     description:
-      "從合歡群峰到能高越嶺古道，第一次踩上高山箭竹與巨木林道，深深著迷於森林的泥土氣息與魔幻晨光，開啟了隨身攜帶速寫本記錄山林的習慣。",
+      "從合歡群峰到能高越嶺古道，第一次踩上高山箭竹與巨木林道，喜歡森林裡的泥土氣味，也開始習慣隨身帶一本小本子記錄山林。",
   },
   {
     year: "2021",
-    title: "遇見犬伴「小栗」",
-    location: "台北 / 台灣步道踏查",
+    title: "遇見小黑狗 Ronnie",
+    location: "台北 / 步道路線",
     description:
-      "四個月大的黃金獵犬「小栗」加入生活。為了讓毛孩安全享受自然，開始實地探訪全台犬伴友善步道，評估水質、陰涼度與關節坡度，並以手繪圖文分享路線指南。",
+      "Ronnie 來到我的生活裡。為了能一起安全地走進自然，開始研究適合毛孩的步道路線，注意坡度、水源與路況，並整理成筆記分享。",
   },
   {
     year: "2022",
-    title: "太平洋屋脊步道（PCT）徒步挑戰",
+    title: "太平洋屋脊步道（PCT）徒步",
     location: "美國西岸 · 4,270 公里",
     description:
-      "背起帳篷與極簡行囊，歷經數月穿越加州沙漠、內華達山脈的積雪隘口，一路抵達華盛頓州邊境。在千米之上的壯麗與荒寂裡，學會放慢腳步、誠實面對內心。",
+      "背著帳篷與行囊，花了幾個月走過加州沙漠、內華達山脈的積雪隘口，一路走到美加邊境。在四千多公里的荒野裡，學會放慢腳步，誠實面對自己。",
   },
   {
     year: "2023",
-    title: "紐西蘭 Te Araroa（TA）縱貫荒野",
+    title: "紐西蘭 Te Araroa（TA）三千公里徒步",
     location: "紐西蘭南北島 · 3,000 公里",
     description:
-      "從雷恩加角的浩瀚海岸線，一路徒步走到南島最南端的布拉夫。跨越冰川溪流與原始櫸木森林，將沿途採集的風聲與故事化為日後的聲音誌創作養分。",
+      "從北島最北端的雷恩加角，一路走到南島的布拉夫。跨過河流與原始櫸木森林，把一路上的風聲收錄下來，成了日後錄製 Podcast 的養分。",
   },
   {
     year: "2024–至今",
-    title: "《森女孩的話與畫》手帳基地誕生",
+    title: "《森女孩的話與畫》",
     location: "山野與生活日常",
     description:
-      "正式成立專屬網站與 Podcast 音聲誌。結合長程徒步踏查、自然散文隨筆與手繪插畫，願為每一位嚮往山林的朋友，點亮一盞平靜溫暖的手帳微光。",
+      "建立了這個網站與 Podcast。把長途徒步的日記、生活散文與畫作整理在這裡，作為一個思想樹洞。",
   },
 ];
 
@@ -117,21 +114,21 @@ export default function AboutPage() {
           {/* 小標 (Eyebrow) */}
           <div className="inline-flex items-center gap-2 text-sm font-medium tracking-widest text-[#BA6341] uppercase mb-3">
             <span className="w-5 h-px bg-[#BA6341] shrink-0" aria-hidden="true" />
-            <span>ABOUT YAKI · 關於森女孩</span>
+            <span>ABOUT YAKI · 關於我</span>
           </div>
 
           {/* 主標題 (Title) */}
           <h1 className="font-sans text-3xl sm:text-4xl md:text-5xl font-bold text-[#262626] leading-tight sm:leading-[1.2] tracking-normal mb-6">
-            在山嶺與稿紙之間，
+            在這裡安放走過的路，
             <br className="hidden sm:inline" />
-            拾起最純粹的生活微光。
+            還有那些閃閃發光的平靜日常。
           </h1>
 
           {/* 前言引導 */}
           <p className="text-lg sm:text-xl font-normal text-[#4A4A4A] leading-relaxed">
-            嗨，我是森女孩 Yaki ( ´▽｀)
+            嗨，我是 Yaki。
             <br className="hidden sm:inline" />
-            平日是文字與插畫創作者，一到週末就成了往山裡奔跑的長程徒步者。帶著四歲的黃金獵犬「小栗」，在千米之上的雲霧與萬里荒野裡，尋找內心最誠實平靜的呼吸節奏。
+            記錄生活的書寫與手作者，也是一名長途徒步與戶外漫遊者。曾與伴侶在太平洋屋脊步道（PCT）走過四千多公里的荒野，如今身邊還有一隻踏著輕快步伐的小黑狗 Ronnie。
           </p>
         </header>
 
@@ -139,7 +136,7 @@ export default function AboutPage() {
         <div className="relative aspect-[16/9] w-full rounded-2xl overflow-hidden shadow-md border border-[#E0D8CB] mb-12 sm:mb-16 bg-[#EBE4D8]">
           <Image
             src="/hero-bg.jpg"
-            alt="森女孩與健行夥伴在山林步道終點"
+            alt="山林步道上的身影"
             fill
             priority
             className="object-cover object-[50%_40%] saturate-[0.88] contrast-[0.96]"
@@ -147,7 +144,7 @@ export default function AboutPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent pointer-events-none" />
           <div className="absolute bottom-4 left-4 sm:left-6 text-xs text-white/95 font-mono tracking-wider backdrop-blur-xs px-3 py-1 rounded-md bg-black/35 border border-white/20">
-            Mori &amp; Kuri · On the Sierra Trail, 2024
+            Yaki &amp; Ronnie · On the Trail
           </div>
         </div>
 
@@ -161,27 +158,27 @@ export default function AboutPage() {
               <span>WILDERNESS</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#262626] leading-snug">
-              走進荒野：從每一步踩踏中找回平靜
+              走路：把生活裡的雜音留在身後
             </h2>
             <div className="space-y-4 text-base font-normal text-[#4A4A4A] leading-relaxed">
               <p>
-                很多人常問我：「是什麼讓你一次次打包沈重的背包，把自己放逐到沒有手機訊號、沒有熱水澡的荒山野嶺？」
+                在城市裡生活久了，注意力總是被各種訊息和行事曆切割。但走進山徑裡，事情就變得很單純——只要專注在眼前的這一步、下一處水源，還有天黑前的營地。
               </p>
               <p>
-                對我而言，現代城市的生活總是充滿了被切割的注意力與倒數計時的行事曆。但在山徑上，事情變得無比純粹——眼前只有這一步的高度、下一座水源點的距離，以及午後雲層可能帶來的雷陣雨。
+                走在太平洋屋脊步道（PCT）的時候，每天除了走路就是吃飯睡覺，身體雖然很累，心裡卻少見地安靜下來。
               </p>
               <p>
-                在太平洋屋脊步道（PCT）走過加州熾熱沙漠與內華達山脈的暴雪隘口時，身體的極限反倒讓思緒沉澱下來。每當雙腳踩在泥土與松針上發出清脆的沙沙聲，我就知道，自己正被這座星球溫柔地接納著。
+                踩在泥土和落葉上的每一步，都讓人感到踏實。在山裡安靜地走著，風和泥土會慢慢洗去生活裡的雜音。
               </p>
             </div>
 
             {/* 筆記手帳引言框 */}
             <div className="my-6 border-l-2 border-[#BA6341] bg-[#F4EFE6] p-5 rounded-r-2xl">
               <p className="italic text-[#262626] text-base leading-relaxed">
-                「登山從來不是為了征服山，而是在高聳的山壁前，學會坦然承認自己的渺小與脆弱，並在每口冷冽的空氣裡，重新學會呼吸。」
+                「登山從來不是為了征服什麼，而是在山林面前，坦然承認自己的渺小，並找回自己的呼吸節奏。」
               </p>
               <span className="block mt-2 text-xs font-mono text-[#737373]">
-                — 寫於 PCT 內華達山脈 High Sierra 營地
+                — 寫於 PCT High Sierra 營地
               </span>
             </div>
           </section>
@@ -194,17 +191,17 @@ export default function AboutPage() {
               <span>CREATION</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#262626] leading-snug">
-              畫筆與文字：記錄無法被相機完全留住的溫度
+              寫字與畫畫：記下不想忘記的細節
             </h2>
             <div className="space-y-4 text-base font-normal text-[#4A4A4A] leading-relaxed">
               <p>
-                相機的快門只需要千分之一秒，就能留下一張色彩鮮豔的高解析照片；但有些感受，是快門留不住的——比如山頂迎面撲來的寒風濕度、落日餘暉照在雙手時那幾分鐘的短暫溫暖，還有夥伴煮沸一杯熱咖啡時升起的白煙。
+                相機能拍下風景的樣子，但有些細節容易被忽略——像是山頂吹過來的冷風、落日時雙手感受到的溫度，還有在營地煮熱水時升起的那一陣白煙。
               </p>
               <p>
-                因此，我的背包側袋裡永遠放著一本浸滿水氣與泥漬的水彩速寫本，以及幾支防水針筆。每當走到一個想駐足的鞍部，我便坐下來，花三十分鐘描繪稜線的起伏。
+                所以我的背包裡總會放著一本水彩速寫本和防水代針筆。走累了在稜線上休息，就拿出本子畫一畫眼前的山稜。
               </p>
               <p>
-                畫畫時，你必須凝視它很久很久。那些筆觸裡的歪斜與水痕，都是當下大自然與我的對話。而《森女孩的話與畫》，就是把這些閃閃發光的碎片整理成冊的秘密基地。
+                手繪的線條也許不完美，但每一筆都是當下的記憶。這個網站就是為了把這些路上的碎片好好收錄起來。
               </p>
             </div>
           </section>
@@ -217,31 +214,31 @@ export default function AboutPage() {
               <span>COMPANION</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold text-[#262626] leading-snug">
-              犬伴同行：四隻腳丈量的山林風景
+              帶狗狗上山：Ronnie 教會我的事
             </h2>
             <div className="space-y-4 text-base font-normal text-[#4A4A4A] leading-relaxed">
               <p>
-                如果說山林教會了我沉思，那我的夥伴犬「小栗」（四歲的黃金獵犬）則教會了我活在當下。
+                我們爬山常常一心想著走到終點或三角點，但小狗不同。路邊一片晃動的樹葉、一窪清澈的小水坑，或者一陣穿過樹林的風，都能讓 Ronnie 停下腳步好奇張望。
               </p>
               <p>
-                人類登山往往心心念念著頂峰與三角點，但小栗不同。一隻停在蕨類上的秋蟬、一窪清涼的高山溪水、甚至一陣穿過樹冠的微風，都能讓牠停下腳步，耳朵輕輕揚起，滿心歡喜。
+                看著她迎頭走來、耳朵往後甩的樣子，總會提醒我：不要急著趕路，現在這個當下就很好。
               </p>
               <p>
-                帶著毛孩走入山林，是一份更深重的責任。我們實踐「無痕山林」（Leave No Trace）原則，避開生態脆弱區與國家公園保護核心，專注踏查台灣合適的中級山古道與林道，並紀錄水質、防蚤防蜱以及關節保健須知，希望為更多想帶著毛孩走入自然的旅人提供實用指南。
+                帶毛孩爬山也是一份責任。我們遵守無痕山林（LNT）原則，避開生態敏感區，只挑選對狗狗友善的路線，並隨時注意她的體力、關節與防蟲保健。
               </p>
             </div>
 
-            {/* 小栗拍立得風格卡片 */}
+            {/* Ronnie 拍立得風格卡片 */}
             <div className="mt-6 bg-[#FFFEFA] border border-[#E2DACB] rounded-2xl p-5 shadow-xs flex flex-col sm:flex-row items-center gap-5">
               <div className="w-16 h-16 rounded-full bg-[#F5ECE3] flex items-center justify-center text-3xl shrink-0 shadow-inner">
                 🐾
               </div>
               <div className="text-center sm:text-left">
                 <div className="text-base font-semibold text-[#262626] mb-1">
-                  健行夥伴：小栗（Kuri）
+                  健行夥伴：Ronnie
                 </div>
                 <p className="text-xs text-[#737373] leading-relaxed">
-                  黃金獵犬 · 健行齡 4 年 · 專長：嗅聞松針香氣、在溪水裡踏浪、提醒主人該休息吃肉乾。
+                  黑狗 · 山林漫遊中 · 專長：迎頭走來笑盈盈、在泥土路上踩小碎步、提醒大家該停下來吃點心。
                 </p>
               </div>
             </div>
@@ -286,18 +283,18 @@ export default function AboutPage() {
 
           {/* ─── 底部溫暖結語與膠囊導覽按鈕 ─── */}
           <section className="pt-10 border-t border-[#E8E1D5] text-center">
-            {/* 暖心結語卡片 */}
+            {/* 結語卡片 */}
             <div className="bg-[#FFFEFA] border border-[#E0D7C7] rounded-3xl p-8 sm:p-10 shadow-sm max-w-xl mx-auto mb-10 relative overflow-hidden">
               {/* 紙膠帶裝飾 */}
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-6 bg-[#E5DCB8]/75 transform -rotate-1 border-dashed border-[#D2C59D] border-x pointer-events-none" />
 
               <p className="text-base sm:text-lg font-medium text-[#262626] leading-relaxed mb-3">
-                「願每座山都溫柔以待，
+                「走過的路、不想忘記的對話，
                 <br />
-                願每一次起步，都能在森林的風聲裡找回自己。」
+                還有閃閃發光的日常。」
               </p>
               <div className="text-xs font-mono text-[#737373]">
-                — 森女孩 Yaki &amp; 小栗 🌿
+                — Yaki &amp; Ronnie 🐾
               </div>
             </div>
 
@@ -308,7 +305,7 @@ export default function AboutPage() {
                 className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#233F31] text-[#FAF7F2] font-semibold text-sm hover:bg-[#182C22] shadow-sm hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 transition-all"
               >
                 <span>🌲</span>
-                <span>探索山林日誌</span>
+                <span>看山林日誌</span>
               </Link>
               <Link
                 href="/"
