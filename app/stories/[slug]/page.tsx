@@ -4,6 +4,37 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getStoryBySlug, getPublishedStories, getPageBlocks, NotionStory } from "@/lib/notion";
 import NotionRenderer from "@/src/components/NotionRenderer";
+import StoryReadingCompanion from "@/components/StoryReadingCompanion";
+
+interface NotionBlockItem {
+  type?: string;
+  [key: string]: unknown;
+}
+
+function estimateReadingMetrics(summary: string, blocks: NotionBlockItem[]) {
+  let text = summary || "";
+  if (blocks && Array.isArray(blocks)) {
+    blocks.forEach((block) => {
+      const type = block?.type;
+      if (type) {
+        const blockContent = block[type] as { rich_text?: Array<{ plain_text?: string }> } | undefined;
+        if (blockContent?.rich_text) {
+          blockContent.rich_text.forEach((item) => {
+            text += item?.plain_text || "";
+          });
+        }
+      }
+    });
+  }
+  const cjkChars = (text.match(/[\u4e00-\u9fa5]/g) || []).length;
+  const englishWords = (text.match(/[a-zA-Z0-9]+/g) || []).length;
+  const totalCount = cjkChars + englishWords;
+  const minutes = Math.max(1, Math.ceil(totalCount / 350));
+  return {
+    charCount: totalCount,
+    readTimeMinutes: minutes,
+  };
+}
 
 interface StoryPageProps {
   params: Promise<{
@@ -110,6 +141,8 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
       ? safeCover
       : "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1600&q=85";
 
+  const readingMetrics = estimateReadingMetrics(story.summary, blocks);
+
   return (
     <div className="min-h-screen bg-[#FAF7F2] text-[#4A4A4A] font-sans selection:bg-[#E8DDD1] selection:text-[#1E3729]">
       {/* ─── 頂部導覽列 (Sticky Navigation Bar) ─── */}
@@ -141,7 +174,7 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
           </Link>
 
           {/* 右側快捷捷徑 */}
-          <div className="hidden sm:flex items-center gap-4 text-xs font-medium text-[#737373]">
+          <div className="hidden sm:flex items-center gap-4 text-xs font-medium text-[#595550]">
             <Link href="/about" className="hover:text-[#BA6341] transition-colors">
               關於我
             </Link>
@@ -155,13 +188,16 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
         </div>
       </header>
 
+      {/* ─── 閱讀伴侶（頂部進度條、回到頂部與文末分享浮層） ─── */}
+      <StoryReadingCompanion storyTitle={story.title} storySummary={story.summary} />
+
       {/* ─── 沉浸式閱讀單欄容器 (Max-w-3xl Editorial Layout) ─── */}
       <main className="max-w-3xl mx-auto px-5 sm:px-6 pt-8 sm:pt-14 pb-24">
         <article className="space-y-8 sm:space-y-10">
           {/* ─── 1. 文章標頭 (Article Header) ─── */}
           <header className="space-y-4">
-            {/* 分類膠囊標籤與發布日期 */}
-            <div className="flex items-center gap-3 text-xs">
+            {/* 分類膠囊標籤、發布日期與閱讀預估 */}
+            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 text-xs text-[#595550]">
               <span
                 className={`px-3 py-1 rounded-full font-semibold shadow-2xs ${getCategoryBadgeClass(
                   story.category
@@ -170,9 +206,21 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
                 {story.category}
               </span>
               {story.date && (
-                <span className="font-mono text-[#737373] tracking-wide">
+                <span className="font-mono text-[#595550] tracking-wide">
                   {story.date}
                 </span>
+              )}
+              {readingMetrics.charCount > 0 && (
+                <>
+                  <span className="text-[#C5BDB0]" aria-hidden="true">•</span>
+                  <span className="font-mono text-[#595550]">
+                    ⏱️ 閱讀約 {readingMetrics.readTimeMinutes} 分鐘
+                  </span>
+                  <span className="text-[#C5BDB0]" aria-hidden="true">•</span>
+                  <span className="font-mono text-[#595550]">
+                    約 {readingMetrics.charCount.toLocaleString()} 字
+                  </span>
+                </>
               )}
             </div>
 
@@ -202,7 +250,7 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
                   className="max-w-full h-auto max-h-[85vh] object-contain rounded-xl shadow-sm border border-[#E0D8CB] bg-[#EBE4D8]"
                 />
               </div>
-              <figcaption className="text-center text-xs text-[#737373] mt-2.5 font-mono">
+              <figcaption className="text-center text-xs text-[#595550] mt-2.5 font-mono">
                 📍 {story.category} · 山林實地記事
               </figcaption>
             </figure>
@@ -219,10 +267,10 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
               <h3 className="text-lg font-semibold text-[#262626] mb-1">
                 日誌內容整理中...
               </h3>
-              <p className="text-xs text-[#737373] leading-relaxed max-w-sm mx-auto mb-4">
+              <p className="text-xs text-[#595550] leading-relaxed max-w-sm mx-auto mb-4">
                 這篇日誌的內容還在整理中，整理好後會更新在這裡。
               </p>
-              <span className="inline-block px-3 py-1 rounded-full bg-[#FAF7F2] border border-[#E0D8CB] text-[11px] font-mono text-[#737373]">
+              <span className="inline-block px-3 py-1 rounded-full bg-[#FAF7F2] border border-[#E0D8CB] text-[11px] font-mono text-[#595550]">
                 NOTION PAGE ID: {story.id}
               </span>
             </div>
@@ -241,7 +289,7 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
                 <div className="text-base font-semibold text-[#262626] mb-1">
                   Yaki &amp; Ronnie 🐾
                 </div>
-                <p className="text-xs text-[#737373] leading-relaxed mb-3">
+                <p className="text-xs text-[#595550] leading-relaxed mb-3">
                   謝謝你讀到這裡。如果這些文字有帶給你一點平靜，那就太好了。
                 </p>
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2 text-[11px] text-[#BA6341] font-mono">
@@ -262,7 +310,7 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
                 href={`/stories/${encodeURIComponent(prevStory.slug)}`}
                 className="group flex-1 flex flex-col items-start p-4 rounded-2xl bg-[#FFFEFA] hover:bg-[#FDF9F3] border border-[#E0D8CB] hover:border-[#BA6341]/60 transition-all shadow-2xs"
               >
-                <span className="text-[11px] font-mono text-[#737373] group-hover:text-[#BA6341] transition-colors mb-1">
+                <span className="text-[11px] font-mono text-[#595550] group-hover:text-[#BA6341] transition-colors mb-1">
                   ← 上一篇日誌
                 </span>
                 <span className="text-sm font-semibold text-[#262626] group-hover:text-[#BA6341] transition-colors line-clamp-1">
@@ -270,7 +318,7 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
                 </span>
               </Link>
             ) : (
-              <div className="flex-1 p-4 rounded-2xl border border-dashed border-[#E0D8CB] text-xs text-[#A8A29E] flex items-center justify-center">
+              <div className="flex-1 p-4 rounded-2xl border border-dashed border-[#E0D8CB] text-xs text-[#78716C] flex items-center justify-center">
                 已是最新一篇日誌
               </div>
             )}
@@ -289,7 +337,7 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
                 href={`/stories/${encodeURIComponent(nextStory.slug)}`}
                 className="group flex-1 flex flex-col items-end text-right p-4 rounded-2xl bg-[#FFFEFA] hover:bg-[#FDF9F3] border border-[#E0D8CB] hover:border-[#BA6341]/60 transition-all shadow-2xs"
               >
-                <span className="text-[11px] font-mono text-[#737373] group-hover:text-[#BA6341] transition-colors mb-1">
+                <span className="text-[11px] font-mono text-[#595550] group-hover:text-[#BA6341] transition-colors mb-1">
                   下一篇日誌 →
                 </span>
                 <span className="text-sm font-semibold text-[#262626] group-hover:text-[#BA6341] transition-colors line-clamp-1">
@@ -297,7 +345,7 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
                 </span>
               </Link>
             ) : (
-              <div className="flex-1 p-4 rounded-2xl border border-dashed border-[#E0D8CB] text-xs text-[#A8A29E] flex items-center justify-center">
+              <div className="flex-1 p-4 rounded-2xl border border-dashed border-[#E0D8CB] text-xs text-[#78716C] flex items-center justify-center">
                 已是第一篇日誌
               </div>
             )}
@@ -307,7 +355,7 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
 
       {/* ─── 簡約頁尾 (Footer) ─── */}
       <footer className="bg-[#FAF7F2] border-t border-[#E8E1D5] py-12">
-        <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#737373]">
+        <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#595550]">
           <div>© 2024–2026 森女孩的話與畫 · FOREST GIRL&apos;S WORDS &amp; ART</div>
           <div className="flex items-center gap-4">
             <Link href="/" className="hover:text-[#BA6341] transition-colors">

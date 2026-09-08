@@ -5,18 +5,20 @@
   --foreground: #4A4A4A;
   --editorial-heading: #262626;
   --editorial-body: #4A4A4A;
-  --editorial-meta: #737373;
+  --editorial-meta: #595550; /* WCAG AA 4.6:1 against #FAF7F2 */
   --paper-card: #FFFEFA;
   --paper-border: #E8E1D5;
   --forest-dark: #1E3729;
   --forest-green: #2B4E3C;
   --forest-soft: #426B55;
   --forest-light: #EEF3EF;
-  --clay-warm: #C16744;
+  --clay-warm: #BA6341;
   --clay-deep: #A04E2F;
   --clay-light: #FBF0EB;
   --sand-warm: #EFE8DC;
   --sand-card: #F7F3EB;
+  --shadow-paper: 0 2px 10px -2px rgba(35, 63, 49, 0.05), 0 1px 3px 0 rgba(0, 0, 0, 0.03);
+  --shadow-paper-hover: 0 12px 24px -6px rgba(35, 63, 49, 0.1), 0 4px 8px -2px rgba(0, 0, 0, 0.04);
   --font-sans: "Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang TC", sans-serif;
   --font-brand-handwriting: "Zen Maru Gothic", system-ui, sans-serif;
 }
@@ -38,6 +40,8 @@
   --color-clay-light: var(--clay-light);
   --color-sand-warm: var(--sand-warm);
   --color-sand-card: var(--sand-card);
+  --shadow-paper: var(--shadow-paper);
+  --shadow-paper-hover: var(--shadow-paper-hover);
   --font-sans: var(--font-sans);
   --font-handwriting: var(--font-brand-handwriting);
 }

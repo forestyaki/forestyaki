@@ -166,29 +166,33 @@ function StoryCard({
           </span>
 
           {/* Like button with micro-feedback */}
-          <motion.button
+          <button
             type="button"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.88 }}
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
               onToggleLike();
             }}
-            className={`w-8 h-8 rounded-full flex items-center justify-center cursor-pointer backdrop-blur-sm transition-colors ${
-              isLiked
-                ? "bg-[#C16744] text-white shadow-sm"
-                : "bg-black/25 text-white/85 hover:bg-black/45"
-            }`}
-            aria-label="收藏文章"
+            aria-label={isLiked ? "已收藏文章，點擊取消" : "收藏這篇日誌"}
+            aria-pressed={isLiked}
+            className="pointer-events-auto -mr-2 -mt-2 min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer group/like"
           >
-            <svg
-              className="w-4 h-4 fill-current transition-transform duration-200"
-              viewBox="0 0 24 24"
+            <span
+              className={`w-8 h-8 rounded-full flex items-center justify-center backdrop-blur-sm transition-transform group-active/like:scale-90 ${
+                isLiked
+                  ? "bg-[#BA6341] text-white shadow-sm"
+                  : "bg-black/30 text-white/90 hover:bg-black/50"
+              }`}
             >
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-            </svg>
-          </motion.button>
+              <svg
+                className="w-4 h-4 fill-current transition-transform duration-200"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+              </svg>
+            </span>
+          </button>
         </div>
 
         {/* Bottom Tag on 16:9 visual */}
@@ -205,7 +209,7 @@ function StoryCard({
       <div className="p-6 flex flex-col flex-1 justify-between">
         <div>
           {/* Category & Read indicator */}
-          <div className="flex items-center gap-2 text-xs text-[#737373] mb-3">
+          <div className="flex items-center gap-2 text-xs text-[#595550] mb-3">
             <span
               className={`px-2 py-0.5 rounded-sm font-medium text-[11px] ${getCategoryBadgeClass(
                 story.category
@@ -231,11 +235,11 @@ function StoryCard({
         </div>
 
         {/* Card Footer: Date & Link */}
-        <div className="pt-4 border-t border-[#EFE8DC] flex items-center justify-between text-xs text-[#737373]">
-          <span className="font-mono text-[#737373]">{story.date}</span>
+        <div className="pt-4 border-t border-[#EFE8DC] flex items-center justify-between text-xs text-[#595550]">
+          <span className="font-mono text-[#595550]">{story.date}</span>
           <Link
             href={`/stories/${encodeURIComponent(story.slug)}`}
-            className="inline-flex items-center gap-1.5 font-medium text-[#737373] group-hover:text-[#C16744] group-hover:translate-x-1 transition-all"
+            className="inline-flex items-center gap-1.5 font-medium text-[#595550] group-hover:text-[#BA6341] group-hover:translate-x-1 transition-all"
           >
             <span>閱讀全文</span>
             <svg
@@ -346,9 +350,27 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
   const useIsomorphicLayoutEffect =
     typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
-  // Day 10: GSAP Hero Entrance Timeline
+  // GSAP Hero Entrance Timeline with prefers-reduced-motion support
   useIsomorphicLayoutEffect(() => {
+    const prefersReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const ctx = gsap.context(() => {
+      const animatedElements = [
+        ".gsap-header",
+        ".gsap-hero-badge",
+        ".gsap-hero-title",
+        ".gsap-hero-desc",
+        ".gsap-hero-cta",
+        ".gsap-hero-polaroid",
+      ];
+
+      if (prefersReducedMotion) {
+        gsap.set(animatedElements, { opacity: 1, y: 0 });
+        return;
+      }
+
       const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
 
       // 步驟 1：頂部導覽列淡入 (opacity: 0 -> 1，y: -10 -> 0，0.5s)
@@ -390,8 +412,47 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
     return () => ctx.revert();
   }, []);
 
+  // 鎖定背景頁面捲動與監聽 ESC 鍵關閉選單/樹洞信箱
+  useEffect(() => {
+    if (mobileMenuOpen || isTreeHoleOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          if (mobileMenuOpen) setMobileMenuOpen(false);
+          if (isTreeHoleOpen) setIsTreeHoleOpen(false);
+        }
+      };
+
+      window.addEventListener("keydown", handleKeyDown);
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        window.removeEventListener("keydown", handleKeyDown);
+      };
+    }
+  }, [mobileMenuOpen, isTreeHoleOpen]);
+
   return (
     <div ref={rootRef} className="min-h-screen bg-[#FAF7F2] text-[#4A4A4A] font-sans selection:bg-[#E8DDD1] selection:text-[#1E3729]">
+      {/* ─── Classic Edition Notice Banner ─── */}
+      <div className="bg-[#233F31] text-[#FAF7F2] text-xs py-2 px-4 flex items-center justify-between border-b border-[#1b3227]">
+        <div className="max-w-6xl mx-auto w-full flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <span className="inline-block w-2 h-2 rounded-full bg-[#BA6341]" />
+            <span className="font-medium">經典手帳典藏版</span>
+            <span className="hidden sm:inline text-[#FAF7F2]/70">｜ 完整保留原始溫潤手帳排版與功能</span>
+          </div>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#BA6341] hover:bg-[#a35232] text-white font-medium text-[11px] transition-colors shadow-xs shrink-0"
+          >
+            前往全新「日系戶外雜誌首頁」
+            <span aria-hidden="true">&rarr;</span>
+          </Link>
+        </div>
+      </div>
+
       {/* ─── Top Navigation ─── */}
       <header className="gsap-header sticky top-0 z-50 bg-[#FAF7F2]/90 backdrop-blur-md border-b border-[#E8E1D5] transition-all">
         <div className="max-w-6xl mx-auto px-6 h-18 flex items-center justify-between">
@@ -419,7 +480,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
               <span className="text-lg font-semibold tracking-tight text-[#262626] group-hover:text-[#C16744] transition-colors font-sans">
                 森女孩的話與畫
               </span>
-              <span className="text-[10px] tracking-widest text-[#737373] uppercase font-mono">
+              <span className="text-[10px] tracking-widest text-[#595550] uppercase font-mono">
                 FOREST GIRL&apos;S WORDS &amp; ART
               </span>
             </div>
@@ -738,7 +799,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                     />
                   </div>
                   <h3 className="text-xl font-semibold text-[#262626]">YAKI</h3>
-                  <p className="text-xs text-[#737373] mt-1 font-mono tracking-wider">
+                  <p className="text-xs text-[#595550] mt-1 font-mono tracking-wider">
                     WORDS × ART × HIKER
                   </p>
                   <div className="flex items-center justify-center mt-3">
@@ -917,7 +978,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
 
                 {/* 底部操作列 */}
                 <div className="pt-4 border-t border-[#EFE8DC] flex flex-wrap items-center justify-between gap-3">
-                  <div className="text-xs text-[#737373] font-mono">
+                  <div className="text-xs text-[#595550] font-mono">
                     <span>🎧 隔週更新 · 自然收音與生活隨筆</span>
                   </div>
                   <a
@@ -968,10 +1029,10 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                           <div className="text-xs font-semibold text-[#262626] group-hover:text-[#C16744] transition-colors">
                             Instagram @forestyaki
                           </div>
-                          <div className="text-[11px] text-[#737373]">日常碎碎念、插畫與山林照片</div>
+                          <div className="text-[11px] text-[#595550]">日常碎碎念、插畫與山林照片</div>
                         </div>
                       </div>
-                      <span className="text-xs font-medium text-[#737373] group-hover:text-[#C16744] group-hover:translate-x-0.5 transition-all">
+                      <span className="text-xs font-medium text-[#595550] group-hover:text-[#C16744] group-hover:translate-x-0.5 transition-all">
                         追蹤 →
                       </span>
                     </a>
@@ -990,10 +1051,10 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                           <div className="text-xs font-semibold text-[#262626] group-hover:text-[#C16744] transition-colors">
                             Threads
                           </div>
-                          <div className="text-[11px] text-[#737373]">隨手碎碎念與裝備心得</div>
+                          <div className="text-[11px] text-[#595550]">隨手碎碎念與裝備心得</div>
                         </div>
                       </div>
-                      <span className="text-xs font-medium text-[#737373] group-hover:text-[#C16744] group-hover:translate-x-0.5 transition-all">
+                      <span className="text-xs font-medium text-[#595550] group-hover:text-[#C16744] group-hover:translate-x-0.5 transition-all">
                         加入 →
                       </span>
                     </a>
@@ -1078,23 +1139,23 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                   森女孩的話與畫
                 </span>
               </a>
-              <p className="text-xs text-[#737373] max-w-sm leading-relaxed">
+              <p className="text-xs text-[#595550] max-w-sm leading-relaxed">
                 走過的路、不想忘記的對話，還有閃閃發光的日常。
               </p>
             </div>
 
             {/* Quick Links */}
-            <div className="flex items-center gap-6 text-xs font-normal text-[#737373]">
-              <a href="#" className="hover:text-[#C16744] transition-colors">
+            <div className="flex items-center gap-6 text-xs font-normal text-[#595550]">
+              <a href="#" className="hover:text-[#BA6341] transition-colors">
                 首頁頂部
               </a>
-              <Link href="/about" className="hover:text-[#C16744] transition-colors">
+              <Link href="/about" className="hover:text-[#BA6341] transition-colors">
                 關於森女孩
               </Link>
-              <Link href="/stories" className="hover:text-[#C16744] transition-colors">
+              <Link href="/stories" className="hover:text-[#BA6341] transition-colors">
                 山林日誌
               </Link>
-              <a href="#film-gallery" className="hover:text-[#C16744] transition-colors">
+              <a href="#film-gallery" className="hover:text-[#BA6341] transition-colors">
                 山野光影
               </a>
               <a
@@ -1107,7 +1168,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                     window.history.pushState(null, "", "#podcast");
                   }
                 }}
-                className="hover:text-[#C16744] transition-colors"
+                className="hover:text-[#BA6341] transition-colors"
               >
                 Podcast
               </a>
@@ -1115,7 +1176,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                 href="https://www.instagram.com/forestyaki/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[#C16744] transition-colors"
+                className="hover:text-[#BA6341] transition-colors"
               >
                 Instagram
               </a>
@@ -1141,9 +1202,9 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
             </button>
           </div>
 
-          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#737373] gap-4">
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#595550] gap-4">
             <div>© 2024–2026 森女孩的話與畫 · FOREST GIRL&apos;S WORDS &amp; ART</div>
-            <div className="flex items-center gap-4 text-[11px] text-[#737373]">
+            <div className="flex items-center gap-4 text-[11px] text-[#595550]">
               <span>與狗同行</span>
               <span>·</span>
               <span>無痕山林</span>
@@ -1172,7 +1233,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
             {/* Close Button (✕) */}
             <button
               onClick={closeTreeHoleModal}
-              className="absolute top-4 right-4 sm:top-5 sm:right-5 w-8 h-8 rounded-full bg-[#EFE8DC] text-[#616E64] hover:bg-[#C16744] hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+              className="absolute top-4 right-4 sm:top-5 sm:right-5 w-8 h-8 rounded-full bg-[#EFE8DC] text-[#616E64] hover:bg-[#BA6341] hover:text-white flex items-center justify-center transition-colors cursor-pointer"
               aria-label="關閉樹洞信箱"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -1201,7 +1262,7 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                   {/* Field 1: Name / Alias */}
                   <div>
                     <label className="block text-xs font-semibold text-[#262626] mb-1.5">
-                      你的稱呼／代稱 <span className="text-[#737373] font-normal">（選填）</span>
+                      你的稱呼／代稱 <span className="text-[#595550] font-normal">（選填）</span>
                     </label>
                     <input
                       type="text"
@@ -1269,21 +1330,25 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                 </form>
               </div>
             ) : (
-              /* Success / Thank You Card */
+              /* Success / Thank You Card with Hand-stamped ceremony */
               <div className="py-6 text-center flex flex-col items-center animate-fadeIn">
-                <div className="w-16 h-16 rounded-full bg-[#EBF1EC] text-[#233F31] border-2 border-[#D5E2D8] flex items-center justify-center text-3xl mb-4 shadow-inner">
-                  🌿
+                <div className="relative w-20 h-20 rounded-full bg-[#EBF1EC] text-[#233F31] border-2 border-[#BA6341]/60 flex items-center justify-center text-4xl mb-4 shadow-sm transform -rotate-3 transition-transform hover:rotate-0">
+                  <div className="absolute inset-1 rounded-full border border-dashed border-[#BA6341]/40 pointer-events-none" />
+                  <span>🌲</span>
                 </div>
-                <h3 className="text-2xl font-semibold text-[#262626] mb-2">
+                <div className="inline-block px-3 py-1 rounded-full bg-[#FAF7F2] border border-[#E5DEC7] text-[11px] font-mono text-[#BA6341] uppercase tracking-wider mb-3">
+                  STAMPED · 信件已投遞
+                </div>
+                <h3 className="text-2xl font-semibold text-[#262626] mb-2 font-sans">
                   信件已經投進樹洞了。
                 </h3>
-                <p className="text-xs sm:text-sm font-normal text-[#4A4A4A] leading-relaxed max-w-sm mb-6">
+                <p className="text-xs sm:text-sm font-normal text-[#595550] leading-relaxed max-w-sm mb-6">
                   {submittedSenderName ? `親愛的 ${submittedSenderName}，` : ""}
                   謝謝你的分享。這封信我已經收到了，錄製 Podcast 時會找時間在節目裡聊聊。祝你有平靜愉快的一天。
                 </p>
                 <button
                   onClick={closeTreeHoleModal}
-                  className="px-6 py-2.5 rounded-full bg-[#233F31] hover:bg-[#C16744] active:scale-95 text-[#FAF7F2] text-xs font-semibold transition-all shadow-xs cursor-pointer"
+                  className="px-6 py-2.5 rounded-full bg-[#233F31] hover:bg-[#BA6341] active:scale-95 text-[#FAF7F2] text-xs font-semibold transition-all shadow-xs cursor-pointer"
                 >
                   關閉樹洞信箱
                 </button>

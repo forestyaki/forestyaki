@@ -93,7 +93,7 @@ export default function AboutPage() {
           </Link>
 
           {/* 右側捷徑 */}
-          <div className="hidden sm:flex items-center gap-4 text-xs font-medium text-[#737373]">
+          <div className="hidden sm:flex items-center gap-4 text-xs font-medium text-[#595550]">
             <Link href="/stories" className="hover:text-[#BA6341] transition-colors">
               山林日誌
             </Link>
@@ -177,7 +177,7 @@ export default function AboutPage() {
               <p className="italic text-[#262626] text-base leading-relaxed">
                 「登山從來不是為了征服什麼，而是在山林面前，坦然承認自己的渺小，並找回自己的呼吸節奏。」
               </p>
-              <span className="block mt-2 text-xs font-mono text-[#737373]">
+              <span className="block mt-2 text-xs font-mono text-[#595550]">
                 — 寫於 PCT High Sierra 營地
               </span>
             </div>
@@ -237,7 +237,7 @@ export default function AboutPage() {
                 <div className="text-base font-semibold text-[#262626] mb-1">
                   健行夥伴：Ronnie
                 </div>
-                <p className="text-xs text-[#737373] leading-relaxed">
+                <p className="text-xs text-[#595550] leading-relaxed">
                   黑狗 · 山林漫遊中 · 專長：迎頭走來笑盈盈、在泥土路上踩小碎步、提醒大家該停下來吃點心。
                 </p>
               </div>
@@ -264,7 +264,7 @@ export default function AboutPage() {
                     <span className="font-mono text-sm font-bold text-[#BA6341] bg-[#FBF0EB] px-2.5 py-0.5 rounded-md">
                       {item.year}
                     </span>
-                    <span className="text-xs font-mono text-[#737373]">
+                    <span className="text-xs font-mono text-[#595550]">
                       {item.location}
                     </span>
                   </div>
@@ -293,7 +293,7 @@ export default function AboutPage() {
                 <br />
                 還有閃閃發光的日常。」
               </p>
-              <div className="text-xs font-mono text-[#737373]">
+              <div className="text-xs font-mono text-[#595550]">
                 — Yaki &amp; Ronnie 🐾
               </div>
             </div>
@@ -321,7 +321,7 @@ export default function AboutPage() {
 
       {/* ─── 簡約頁尾 (Footer) ─── */}
       <footer className="bg-[#FAF7F2] border-t border-[#E8E1D5] py-12">
-        <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#737373]">
+        <div className="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#595550]">
           <div>© 2024–2026 森女孩的話與畫 · FOREST GIRL&apos;S WORDS &amp; ART</div>
           <div className="flex items-center gap-4">
             <Link href="/" className="hover:text-[#BA6341] transition-colors">
