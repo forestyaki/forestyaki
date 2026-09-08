@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://forest-yaki.vercel.app";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://forestyaki.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
