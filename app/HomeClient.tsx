@@ -725,9 +725,17 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
             {/* Avatar & Visual Box */}
             <div className="md:col-span-5 flex justify-center">
               <div className="relative">
-                <div className="w-64 h-64 sm:w-72 sm:h-72 rounded-3xl bg-[#FFFEFA] border border-[#E0D8CB] p-4 shadow-md flex flex-col items-center justify-center text-center relative overflow-hidden">
-                  <div className="w-32 h-32 rounded-full bg-[#EBF1EC] border-2 border-[#D2DEC8] flex items-center justify-center mb-4 text-4xl shadow-inner">
-                    🌲
+                <div className="w-64 sm:w-72 p-6 rounded-3xl bg-[#FFFEFA] border border-[#E0D8CB] shadow-md flex flex-col items-center justify-center text-center relative overflow-hidden">
+                  <div className="relative w-32 h-32 sm:w-36 sm:h-36 rounded-full overflow-hidden border-2 border-[#D2DEC8] shadow-sm mb-3.5 bg-[#EBF1EC]">
+                    <Image
+                      src="/avatar.jpg"
+                      alt="Yaki 個人頭像"
+                      fill
+                      unoptimized
+                      sizes="(max-width: 640px) 128px, 144px"
+                      className="object-cover object-top"
+                      priority
+                    />
                   </div>
                   <h3 className="text-xl font-semibold text-[#262626]">YAKI</h3>
                   <p className="text-xs text-[#737373] mt-1 font-mono tracking-wider">
@@ -738,10 +746,6 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                       徒步者 / 寫字的人
                     </span>
                   </div>
-                </div>
-
-                <div className="absolute -top-3 -right-3 bg-[#233F31] text-[#FAF7F2] text-[11px] px-3 py-1 rounded-full font-medium shadow-md rotate-6">
-                  手繪與山林 🍃
                 </div>
               </div>
             </div>
