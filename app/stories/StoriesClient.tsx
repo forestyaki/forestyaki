@@ -337,7 +337,7 @@ export default function StoriesClient({
   const featuredStory = useMemo(() => {
     if (initialStories.length === 0) return null;
     return (
-      initialStories.find((s) => Boolean((s as any).featured)) ||
+      initialStories.find((story: any) => Boolean((story as any)?.featured)) ||
       initialStories[0]
     );
   }, [initialStories]);
