@@ -752,9 +752,9 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                 eyebrow="關於森女孩 · ABOUT YAKI"
                 title={
                   <>
-                    在城市與山嶺交界的邊緣，
+                    在這裡安放走過的路，
                     <br />
-                    記錄文字與畫筆帶來的平靜。
+                    還有那些閃閃發光的平靜日常。
                   </>
                 }
                 className="mb-5"
