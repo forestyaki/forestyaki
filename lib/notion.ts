@@ -1,4 +1,5 @@
 import { Client } from "@notionhq/client";
+import { getCuratedStories } from "./stories";
 
 export interface NotionStory {
   id: string;
@@ -9,6 +10,7 @@ export interface NotionStory {
   summary: string;
   date: string;
   coverImage: string | null;
+  featured?: boolean;
 }
 
 const notion = new Client({
@@ -72,26 +74,20 @@ async function resolveDataSourceId(rawId: string): Promise<string> {
 }
 
 /**
- * Fetches published & featured stories from Notion database, ordered by Date descending
+ * Fetches published stories from Notion database, ordered by Date descending.
+ * Gracefully falls back to curated stories when Notion is empty or unreachable.
  */
 export async function getPublishedStories(): Promise<NotionStory[]> {
   const apiKey = process.env.NOTION_API_KEY;
   const rawId = process.env.NOTION_DATA_SOURCE_ID || process.env.NOTION_DATABASE_ID;
 
   if (!apiKey || !rawId) {
-    console.warn("Notion API Key or Database ID is missing from environment variables.");
-    return [];
+    console.warn("Notion API Key or Database ID is missing from environment variables. Using curated stories.");
+    return getCuratedStories();
   }
 
   try {
     const targetId = await resolveDataSourceId(rawId);
-
-    const filter = {
-      and: [
-        { property: "Published", checkbox: { equals: true } },
-        { property: "Featured", checkbox: { equals: true } },
-      ],
-    };
 
     const sorts = [
       { property: "Date", direction: "descending" as const },
@@ -101,25 +97,45 @@ export async function getPublishedStories(): Promise<NotionStory[]> {
 
     // Supports Notion SDK v5 (dataSources.query) and v2 (databases.query)
     if (typeof (notion as any).dataSources?.query === "function") {
-      const response = await (notion as any).dataSources.query({
-        data_source_id: targetId,
-        filter,
-        sorts,
-      });
-      results = response.results || [];
+      try {
+        const response = await (notion as any).dataSources.query({
+          data_source_id: targetId,
+          filter: { property: "Published", checkbox: { equals: true } },
+          sorts,
+        });
+        results = response.results || [];
+      } catch {
+        const response = await (notion as any).dataSources.query({
+          data_source_id: targetId,
+          sorts,
+        });
+        results = response.results || [];
+      }
     } else if (typeof (notion as any).databases?.query === "function") {
-      const response = await (notion as any).databases.query({
-        database_id: targetId,
-        filter,
-        sorts,
-      });
-      results = response.results || [];
+      try {
+        const response = await (notion as any).databases.query({
+          database_id: targetId,
+          filter: { property: "Published", checkbox: { equals: true } },
+          sorts,
+        });
+        results = response.results || [];
+      } catch {
+        const response = await (notion as any).databases.query({
+          database_id: targetId,
+          sorts,
+        });
+        results = response.results || [];
+      }
     }
 
-    return results.map(parseNotionPage);
+    if (results.length > 0) {
+      return results.map(parseNotionPage);
+    }
+
+    return getCuratedStories();
   } catch (error) {
-    console.error("Error in getPublishedStories():", error);
-    throw error;
+    console.error("Error in getPublishedStories(), falling back to curated stories:", error);
+    return getCuratedStories();
   }
 }
 
@@ -164,6 +180,10 @@ export function parseNotionPage(page: any): NotionStory {
     page.cover?.file?.url ||
     null;
 
+  // Featured (checkbox type)
+  const featProp = getProp(props, "Featured");
+  const featured = Boolean(featProp?.checkbox);
+
   return {
     id: page.id,
     pageId: page.id,
@@ -173,6 +193,7 @@ export function parseNotionPage(page: any): NotionStory {
     summary,
     date,
     coverImage,
+    featured,
   };
 }
 

@@ -8,7 +8,7 @@ import { NotionStory } from "@/lib/notion";
 import SectionHeader from "@/components/SectionHeader";
 
 interface StoriesClientProps {
-  initialStories: NotionStory[];
+  initialStories: (NotionStory & { featured?: boolean })[];
   fetchError?: string | null;
 }
 
@@ -333,10 +333,13 @@ export default function StoriesClient({
     }));
   };
 
-  // 1. 抓取最新或標註 Featured 的文章作為 Featured Hero
+  // 1. 抓取最新或標註 Featured 的文章作為 Featured Hero（防呆安全讀取）
   const featuredStory = useMemo(() => {
     if (initialStories.length === 0) return null;
-    return initialStories.find((s) => s.featured) || initialStories[0];
+    return (
+      initialStories.find((s) => Boolean((s as any).featured)) ||
+      initialStories[0]
+    );
   }, [initialStories]);
 
   // 2. 子分類標籤過濾清單（包含「全部、長程縱走、單日步道、海外遠征、生活散文」與動態標籤）
