@@ -5,6 +5,10 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "file.notion.com",
+      },
+      {
+        protocol: "https",
         hostname: "prod-files-secure.s3.us-west-2.amazonaws.com",
       },
       {
@@ -26,6 +30,10 @@ const nextConfig: NextConfig = {
       {
         protocol: "https",
         hostname: "*.notion.so",
+      },
+      {
+        protocol: "https",
+        hostname: "*.notion.com",
       },
     ],
   },
