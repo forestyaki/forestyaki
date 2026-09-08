@@ -588,13 +588,17 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
         </div>
 
         <div className="max-w-5xl mx-auto px-6 relative z-10">
-          {/* Hero Pill Badge - Centered & Soft Oatmeal Gray */}
-          <div className="flex justify-center w-full mb-6">
-            <div className="gsap-hero-badge inline-flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 px-3.5 sm:px-4 py-1.5 rounded-2xl sm:rounded-full bg-stone-100/90 border border-stone-200/70 text-[#4A4A4A] text-[11px] sm:text-xs font-medium shadow-2xs text-center leading-tight max-w-full backdrop-blur-xs">
-              <span className="whitespace-nowrap">🥾 長程徒步者 · 聲音紀錄 · 畫筆漫遊</span>
-              <span className="hidden sm:inline text-stone-300">｜</span>
-              <span className="whitespace-nowrap text-[#262626] font-semibold sm:font-medium">PCT &amp; Te Araroa</span>
-            </div>
+          {/* Hero Pill Badges - Centered */}
+          <div className="flex justify-center items-center gap-2 sm:gap-2.5 flex-wrap w-full mb-6">
+            <span className="gsap-hero-badge px-3.5 py-1.5 rounded-full bg-stone-100/90 border border-stone-200/80 text-[#262626] text-xs font-medium shadow-2xs backdrop-blur-xs">
+              徒步情書
+            </span>
+            <span className="gsap-hero-badge px-3.5 py-1.5 rounded-full bg-stone-100/90 border border-stone-200/80 text-[#262626] text-xs font-medium shadow-2xs backdrop-blur-xs">
+              所思所想
+            </span>
+            <span className="gsap-hero-badge px-3.5 py-1.5 rounded-full bg-stone-100/90 border border-stone-200/80 text-[#262626] text-xs font-medium shadow-2xs backdrop-blur-xs">
+              一些隨手的畫
+            </span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -616,12 +620,18 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
                 />
 
                 {/* Introduction Story Paragraphs (Reporter Charcoal #4A4A4A, text-left) */}
-                <div className="gsap-hero-desc text-sm sm:text-base text-[#4A4A4A] font-normal leading-relaxed mb-6 sm:mb-8 max-w-md mx-auto text-left">
-                  <p className="mb-3 leading-relaxed text-left">
-                    嗨，我是 Yaki。著迷於日出前天空被染成粉橘的魔幻時刻，也戀雙腳踩在泥土落葉上的每一步沙沙聲。
+                <div className="gsap-hero-desc text-sm sm:text-base text-[#4A4A4A] font-normal leading-relaxed mb-6 sm:mb-8 max-w-md mx-auto text-left space-y-1.5">
+                  <p className="leading-relaxed text-left">
+                    我喜歡走路，看書，和愛人與小狗待在一起
                   </p>
                   <p className="leading-relaxed text-left">
-                    從太平洋屋脊步道（PCT）走到紐西蘭 Te Araroa。這裡是我的山林樹洞——記錄走過的路、收錄風聲對話，也把閃閃發光的日常悄悄畫進紙筆裡。
+                    這裡是我的思想樹洞
+                  </p>
+                  <p className="leading-relaxed text-left">
+                    記錄走過的路、不想忘記的對話
+                  </p>
+                  <p className="leading-relaxed text-left">
+                    還有閃閃發光的日常
                   </p>
                 </div>
 
@@ -697,71 +707,27 @@ export default function HomeClient({ initialStories, fetchError }: HomeClientPro
               </div>
             </div>
 
-            {/* Hero Right Visual: Polaroid Card */}
+            {/* Hero Right Visual: Clean Photo Card without decorations */}
             <div className="gsap-hero-polaroid lg:col-span-5 flex justify-center lg:justify-end ml-auto">
-              <div className="relative w-full max-w-[280px] sm:max-w-[295px] lg:scale-90 lg:translate-x-6">
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-28 h-7 bg-[#E5DCB8]/75 backdrop-blur-2xs transform -rotate-2 z-20 shadow-2xs border-dashed border-[#D2C59D] border-x"></div>
-
-                <div className="bg-[#FFFEFA] p-5 pb-7 rounded-sm border border-[#E0D8CB] shadow-xl transform rotate-1 hover:rotate-0 transition-transform duration-300">
-                  <div className="relative aspect-[3/4] rounded-xs overflow-hidden bg-[#EAE4D7] shadow-inner">
+              <div className="w-full max-w-[280px] sm:max-w-[305px] lg:scale-95 lg:translate-x-4">
+                <div className="bg-[#FFFEFA] p-4 pb-5 rounded-2xl border border-[#E0D8CB] shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <div className="relative aspect-[3/4] rounded-xl overflow-hidden bg-[#EAE4D7]">
                     <Image
                       src="/images/ronnie-trail.jpg"
-                      alt="Ronnie 在淡蘭古道中路"
+                      alt="Ronnie 在山林步道"
                       fill
                       unoptimized
-                      sizes="(max-width: 640px) 280px, 300px"
+                      sizes="(max-width: 640px) 280px, 305px"
                       className="object-cover object-center"
+                      priority
                     />
-
-                    {/* Subtle Gradient Overlay for Tag Readability */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none" />
-
-                    {/* Location Badge on Photo */}
-                    <div className="absolute top-3 left-3 z-10">
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/45 backdrop-blur-md border border-white/20 text-[11px] font-medium tracking-wider text-[#FAF7F2] font-sans shadow-xs">
-                        <span className="text-[#E8C28A] text-[10px]">📍</span>
-                        <span>淡蘭古道中路</span>
-                      </span>
-                    </div>
                   </div>
 
-                  {/* Polaroid Journal Quote & Trail Notes */}
-                  <div className="mt-3.5 px-0.5">
-                    <p className="text-xs text-[#4A4A4A] italic font-sans leading-relaxed">
-                      「我最喜歡看你迎頭走來，耳朵往後甩，笑盈盈的看著我。」
+                  {/* Photo Caption / Quote */}
+                  <div className="mt-4 px-1">
+                    <p className="text-xs sm:text-[13px] text-[#4A4A4A] font-sans leading-relaxed">
+                      「他是我的山狗狗Ronnie，我最喜歡看著她迎頭走來，耳朵往後甩，笑盈盈的看著我。」
                     </p>
-                    <div className="mt-2.5 flex items-center justify-between text-xs text-[#7B867E]">
-                      <span className="font-serif italic text-xs text-[#233F31]">
-                        Ronnie on Trail, 2024
-                      </span>
-                      <span className="flex items-center gap-1 text-[#C16744] text-[11px]">
-                        <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
-                          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                        </svg>
-                        Favorite trail
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Bottom Left Companion Dog Badge */}
-                <div className="absolute -bottom-5 -left-5 bg-[#FFFEFA] border border-[#E2DACB] rounded-2xl p-2.5 sm:p-3 shadow-lg flex items-center gap-3">
-                  <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden shrink-0 border border-stone-200/80 shadow-xs">
-                    <Image
-                      src="/images/ronnie-avatar.jpg"
-                      alt="夥伴犬 Ronnie"
-                      fill
-                      unoptimized
-                      className="object-cover object-[62%_50%]"
-                    />
-                  </div>
-                  <div>
-                    <div className="text-xs font-semibold text-[#262626] font-sans">
-                      夥伴犬：Ronnie
-                    </div>
-                    <div className="text-[11px] text-[#737373] font-sans mt-0.5">
-                      黑狗 · 2 歲 · 步道漫遊中
-                    </div>
                   </div>
                 </div>
               </div>
