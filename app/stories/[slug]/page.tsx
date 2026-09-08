@@ -111,7 +111,7 @@ export default async function StoryDetailPage({ params }: StoryPageProps) {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
           {/* 返回日誌列表按鈕 */}
           <Link
-            href="/#stories"
+            href="/stories"
             className="inline-flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm font-semibold text-[#233F31] hover:text-[#BA6341] transition-colors shrink-0"
           >
             <span aria-hidden="true">←</span>
