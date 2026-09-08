@@ -1,4 +1,4 @@
-import { Client } from "@notionhq/client";
+import { Client, LogLevel } from "@notionhq/client";
 import { getCuratedStories } from "./stories";
 
 export interface NotionStory {
@@ -15,6 +15,7 @@ export interface NotionStory {
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
+  logLevel: LogLevel.ERROR,
 });
 
 let cachedDataSourceId: string | null = null;
@@ -30,22 +31,36 @@ function getProp(properties: Record<string, any>, name: string): any {
 }
 
 /**
- * Resolves the queryable data_source_id or database_id across Notion's latest SDK versions
+ * Resolves the queryable data_source_id or database_id across Notion's SDK versions.
+ * Gracefully handles:
+ * 1. A page ID containing an inline child_database (when user copies the page URL/ID)
+ * 2. A database ID directly
+ * 3. A data_source ID directly
+ * 4. Automatic workspace search fallback
  */
 async function resolveDataSourceId(rawId: string): Promise<string> {
   if (cachedDataSourceId) return cachedDataSourceId;
   const cleanId = rawId.replace(/-/g, "");
 
-  // 1. Try retrieving directly as data_source
+  // 1. Check if rawId is a page containing an inline child_database
   try {
-    const ds = await (notion as any).dataSources?.retrieve({ data_source_id: cleanId });
-    if (ds && ds.id) {
-      cachedDataSourceId = ds.id;
-      return ds.id;
+    const blocks = await notion.blocks.children.list({ block_id: cleanId });
+    const childDb = blocks.results.find((b: any) => b.type === "child_database");
+    if (childDb) {
+      try {
+        const db = await notion.databases.retrieve({ database_id: childDb.id });
+        if ((db as any).data_sources && (db as any).data_sources.length > 0) {
+          const dsId = (db as any).data_sources[0].id as string;
+          cachedDataSourceId = dsId;
+          return dsId;
+        }
+      } catch {}
+      cachedDataSourceId = childDb.id;
+      return childDb.id;
     }
   } catch {}
 
-  // 2. Try retrieving as database and inspect its data_sources
+  // 2. Check if rawId is directly a database
   try {
     const db = await notion.databases.retrieve({ database_id: cleanId });
     if ((db as any).data_sources && (db as any).data_sources.length > 0) {
@@ -53,19 +68,39 @@ async function resolveDataSourceId(rawId: string): Promise<string> {
       cachedDataSourceId = dsId;
       return dsId;
     }
+    cachedDataSourceId = cleanId;
+    return cleanId;
   } catch {}
 
-  // 3. Try retrieving as page containing an inline child_database
+  // 3. Check if rawId is directly a data_source
   try {
-    const blocks = await notion.blocks.children.list({ block_id: cleanId });
-    const childDb = blocks.results.find((b: any) => b.type === "child_database");
-    if (childDb) {
-      const db = await notion.databases.retrieve({ database_id: childDb.id });
-      if ((db as any).data_sources && (db as any).data_sources.length > 0) {
-        const dsId = (db as any).data_sources[0].id as string;
-        cachedDataSourceId = dsId;
-        return dsId;
+    if ((notion as any).dataSources?.retrieve) {
+      const ds = await (notion as any).dataSources.retrieve({ data_source_id: cleanId });
+      if (ds && ds.id) {
+        cachedDataSourceId = ds.id;
+        return ds.id;
       }
+    }
+  } catch {}
+
+  // 4. Fallback search for accessible data_source or database in workspace
+  try {
+    if (typeof (notion as any).search === "function") {
+      try {
+        const res = await (notion as any).search({ filter: { value: "data_source", property: "object" } });
+        if (res.results && res.results.length > 0) {
+          cachedDataSourceId = res.results[0].id;
+          return res.results[0].id;
+        }
+      } catch {}
+
+      try {
+        const res = await (notion as any).search({ filter: { value: "database", property: "object" } });
+        if (res.results && res.results.length > 0) {
+          cachedDataSourceId = res.results[0].id;
+          return res.results[0].id;
+        }
+      } catch {}
     }
   } catch {}
 
@@ -213,37 +248,27 @@ export async function getStoryBySlug(slug: string): Promise<NotionStory | null> 
 
   try {
     const targetId = await resolveDataSourceId(rawId);
-
-    // Direct filter on slug or Slug property
-    const filter = {
-      or: [
-        { property: "slug", rich_text: { equals: decodedSlug } },
-        { property: "Slug", rich_text: { equals: decodedSlug } },
-      ],
-    };
-
     let results: any[] = [];
 
-    if (typeof (notion as any).dataSources?.query === "function") {
-      try {
-        const response = await (notion as any).dataSources.query({
-          data_source_id: targetId,
-          filter,
-        });
-        results = response.results || [];
-      } catch (err) {
-        // Fallback to fetch all published stories if filtered query fails
+    // Direct filter on slug or Slug property safely
+    const queryBySlugProp = async (propName: string) => {
+      const filter = { property: propName, rich_text: { equals: decodedSlug } };
+      if (typeof (notion as any).dataSources?.query === "function") {
+        const res = await (notion as any).dataSources.query({ data_source_id: targetId, filter });
+        return res.results || [];
+      } else if (typeof (notion as any).databases?.query === "function") {
+        const res = await (notion as any).databases.query({ database_id: targetId, filter });
+        return res.results || [];
       }
-    } else if (typeof (notion as any).databases?.query === "function") {
+      return [];
+    };
+
+    try {
+      results = await queryBySlugProp("slug");
+    } catch {
       try {
-        const response = await (notion as any).databases.query({
-          database_id: targetId,
-          filter,
-        });
-        results = response.results || [];
-      } catch (err) {
-        // Fallback
-      }
+        results = await queryBySlugProp("Slug");
+      } catch {}
     }
 
     if (results.length > 0) {

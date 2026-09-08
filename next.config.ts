@@ -2,10 +2,27 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+    qualities: [75, 95],
     remotePatterns: [
       {
         protocol: "https",
         hostname: "file.notion.com",
+      },
+      {
+        protocol: "https",
+        hostname: "*.notion.com",
+      },
+      {
+        protocol: "https",
+        hostname: "*.notion.so",
+      },
+      {
+        protocol: "https",
+        hostname: "www.notion.so",
+      },
+      {
+        protocol: "https",
+        hostname: "*.amazonaws.com",
       },
       {
         protocol: "https",
@@ -17,23 +34,15 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "www.notion.so",
-      },
-      {
-        protocol: "https",
         hostname: "images.unsplash.com",
       },
       {
         protocol: "https",
-        hostname: "*.amazonaws.com",
+        hostname: "*.biji.co",
       },
       {
         protocol: "https",
-        hostname: "*.notion.so",
-      },
-      {
-        protocol: "https",
-        hostname: "*.notion.com",
+        hostname: "*.bp.blogspot.com",
       },
     ],
   },
