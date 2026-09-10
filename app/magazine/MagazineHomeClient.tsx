@@ -173,23 +173,17 @@ export default function MagazineHomeClient({
             </p>
           </div>
 
-          {/* 右側：專屬品牌 Logo 磚紅圓形印章貼紙 */}
+          {/* 右側：品牌 Logo 去背檔 */}
           <div className="flex items-center self-start lg:self-end">
-            <div
-              className="relative w-20 h-20 sm:w-22 sm:h-22 rounded-full bg-[#BA6341] p-1.5 shadow-md flex items-center justify-center transform rotate-2 hover:rotate-0 transition-transform cursor-pointer"
-              title="森女孩的話與畫 品牌標誌"
-            >
-              <div className="absolute inset-1 rounded-full border border-dashed border-white/50 pointer-events-none" />
-              <div className="w-full h-full rounded-full bg-[#FAF7F2] flex items-center justify-center p-2 shadow-inner">
-                <Image
-                  src="/logo.png"
-                  alt="森女孩的話與畫 Logo"
-                  width={56}
-                  height={56}
-                  className="object-contain"
-                  priority
-                />
-              </div>
+            <div className="relative w-16 h-16 sm:w-20 sm:h-20 lg:w-22 lg:h-22 flex items-center justify-center">
+              <Image
+                src="/logo.png"
+                alt="森女孩的話與畫 Logo"
+                width={88}
+                height={88}
+                className="w-full h-full object-contain"
+                priority
+              />
             </div>
           </div>
         </div>
@@ -286,21 +280,15 @@ export default function MagazineHomeClient({
         </div>
       </section>
 
-      {/* ─── 4. 金句引言穿插 (Editorial Pull Quote Strip) ─── */}
-      {/* ─── 4. 金句引言穿插 (Editorial Pull Quote Strip) ─── */}
-      <section className="my-14 bg-[#F5EFE6] border-y border-[#E5DEC7] py-8 px-4 sm:px-6">
-        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
-          <div className="flex items-start gap-4">
-            <span className="font-serif text-5xl font-bold text-[#BA6341] leading-none select-none">
-              “
-            </span>
-            <p className="font-serif text-lg sm:text-xl text-[#262626] font-medium leading-relaxed">
-              在這裡安放走過的路，還有那些閃閃發光的平靜日常。
-            </p>
-          </div>
-          <div className="shrink-0 text-xs text-[#BA6341] border border-[#BA6341]/40 px-3.5 py-1.5 rounded-full bg-white/60 font-medium">
-            太平洋屋脊步道 · 4,270 公里
-          </div>
+      {/* ─── 4. 金句引言穿插 (Centered Pull Quote Strip) ─── */}
+      <section className="my-14 bg-[#F5EFE6] border-y border-[#E5DEC7] py-10 px-4 sm:px-6">
+        <div className="max-w-3xl mx-auto text-center flex flex-col items-center justify-center">
+          <span className="font-serif text-4xl sm:text-5xl font-bold text-[#BA6341] leading-none select-none mb-3">
+            “
+          </span>
+          <p className="font-serif text-lg sm:text-xl md:text-2xl text-[#262626] font-medium leading-relaxed tracking-wide">
+            在這裡安放走過的路，還有那些閃閃發光的平靜日常。
+          </p>
         </div>
       </section>
 
