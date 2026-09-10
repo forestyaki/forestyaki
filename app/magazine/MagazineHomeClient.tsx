@@ -192,37 +192,35 @@ export default function MagazineHomeClient({
       {/* ─── 3. 核心精選紀實與卷首手記 (Hero Story & Lead Editorial) ─── */}
       <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto my-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
-          {/* 【左側 7 欄】：PCT 終點紀念紀實大圖（純淨無多餘裝飾） */}
-          <div className="lg:col-span-7 relative bg-[#FAF7F2] rounded-2xl overflow-hidden shadow-sm border border-[#E0D8CB] flex flex-col justify-end group">
-            <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-auto lg:h-[500px]">
-              <Image
-                src="/hero-bg.jpg"
-                alt="太平洋屋脊步道（PCT）北端終點紀念碑 · 華盛頓州"
-                fill
-                priority
-                className="object-cover object-[50%_35%] transition-transform duration-700 group-hover:scale-[1.01]"
-              />
-              {/* 自然漸層遮罩 */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent pointer-events-none" />
+          {/* 【左側 7 欄】：PCT 終點紀念紀實大圖（滿版無頂部縫隙） */}
+          <div className="lg:col-span-7 relative min-h-[420px] sm:min-h-[480px] lg:min-h-[520px] rounded-2xl overflow-hidden shadow-sm border border-[#E0D8CB] group">
+            <Image
+              src="/hero-bg.jpg"
+              alt="太平洋屋脊步道（PCT）北端終點紀念碑 · 華盛頓州"
+              fill
+              priority
+              className="object-cover object-[50%_35%] transition-transform duration-700 group-hover:scale-[1.01]"
+            />
+            {/* 自然漸層遮罩 */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent pointer-events-none" />
 
-              {/* 左上角標籤 */}
-              <div className="absolute top-5 left-5 z-20">
-                <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#BA6341] text-white text-xs font-medium shadow-xs">
-                  PCT · 4,270 公里完步紀實
-                </span>
-              </div>
+            {/* 左上角標籤 */}
+            <div className="absolute top-5 left-5 z-20">
+              <span className="inline-flex items-center px-3 py-1 rounded-full bg-[#BA6341] text-white text-xs font-medium shadow-xs">
+                PCT · 4,270 公里完步紀實
+              </span>
+            </div>
 
-              {/* 左下角真實圖說 */}
-              <div className="absolute bottom-5 left-5 right-5 z-20 text-white/95 max-w-lg">
-                <p className="text-xs text-stone-300 font-mono mb-1.5 flex flex-wrap items-center gap-2">
-                  <span>📍 華盛頓州 · PCT 北端終點（Northern Terminus）</span>
-                  <span>·</span>
-                  <span>2025.09.15</span>
-                </p>
-                <h3 className="text-base sm:text-lg font-serif font-bold text-white leading-snug">
-                  背著四千多公里的行囊走過風雨，我們終於並肩抵達了美加邊界的終點。
-                </h3>
-              </div>
+            {/* 左下角真實圖說 */}
+            <div className="absolute bottom-5 left-5 right-5 z-20 text-white/95 max-w-lg">
+              <p className="text-xs text-stone-300 font-mono mb-1.5 flex flex-wrap items-center gap-2">
+                <span>📍 華盛頓州 · PCT 北端終點（Northern Terminus）</span>
+                <span>·</span>
+                <span>2025.09.15</span>
+              </p>
+              <h3 className="text-base sm:text-lg font-serif font-bold text-white leading-snug">
+                背著四千多公里的行囊走過風雨，我們終於並肩抵達了美加邊界的終點。
+              </h3>
             </div>
           </div>
 
