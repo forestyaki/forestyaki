@@ -281,14 +281,13 @@ export default function MagazineHomeClient({
       </section>
 
       {/* ─── 4. 金句引言穿插 (Centered Pull Quote Strip) ─── */}
-      <section className="my-14 bg-[#F5EFE6] border-y border-[#E5DEC7] py-10 px-4 sm:px-6">
-        <div className="max-w-3xl mx-auto text-center flex flex-col items-center justify-center">
-          <span className="font-serif text-4xl sm:text-5xl font-bold text-[#BA6341] leading-none select-none mb-3">
-            “
-          </span>
-          <p className="font-serif text-lg sm:text-xl md:text-2xl text-[#262626] font-medium leading-relaxed tracking-wide">
-            在這裡安放走過的路，還有那些閃閃發光的平靜日常。
-          </p>
+      <section className="my-14 bg-[#F5EFE6] border-y border-[#E5DEC7] py-8 sm:py-10 px-4 sm:px-6">
+        <div className="max-w-4xl mx-auto text-center flex items-center justify-center">
+          <blockquote className="font-serif text-lg sm:text-xl md:text-2xl text-[#262626] font-medium leading-relaxed tracking-wide inline-flex items-center flex-wrap justify-center gap-1.5 sm:gap-2.5">
+            <span className="text-[#BA6341] text-2xl sm:text-3xl md:text-4xl font-serif font-bold select-none leading-none -translate-y-0.5">“</span>
+            <span>在這裡安放走過的路，還有那些閃閃發光的平靜日常。</span>
+            <span className="text-[#BA6341] text-2xl sm:text-3xl md:text-4xl font-serif font-bold select-none leading-none translate-y-0.5">”</span>
+          </blockquote>
         </div>
       </section>
 
